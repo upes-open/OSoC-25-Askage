@@ -1,53 +1,55 @@
 
 # Frontend (Chrome Extension)
 
-Before contributing, you need to install a local copy of this Chrome extension in your browser.  
-_Please make sure you're using a Chromium-based browser like Google Chrome, Brave, or Opera._
+Welcome! Before contributing, please set up a local copy of this Chrome extension.  
+_Make sure you're using a Chromium-based browser such as Google Chrome, Brave, or Opera._
 
-## Installation
+## 🚀 Installation
 
-First, clone the entire repository to your system. Then run this script to install all dependencies:
+Clone the repository and install dependencies:
 
 ```sh
 cd frontend  # Navigate to the frontend directory
-npm install
+npm install  # Install project dependencies
 ```
 
-## Install Chrome Extension (One-Time Setup)
+## 🧩 Load the Chrome Extension (One-Time Setup)
 
-Once everything is set up, follow these steps to install the Chrome extension in your browser for testing:
+Follow these steps to install the extension in your browser:
 
-1. Run `npm run build`. This will generate a `/dist` directory.
-2. Open `chrome://extensions` in your browser and enable **Developer mode** from the top-right corner.
-3. Click the **Load unpacked** button, and select the `/dist` directory that was just generated.
-4. Click the extensions icon in your browser’s address bar to view all installed extensions.
-5. You’ll see **Askage** listed there. Click the **Pin** icon to make it easily accessible.
+1. Run `npm run build` to generate the `/dist` directory.
+2. Go to `chrome://extensions` in your browser.
+3. Enable **Developer mode** (toggle in the top-right corner).
+4. Click **Load unpacked** and select the `/dist` directory.
+5. Click the extensions icon in the browser’s address bar.
+6. Find **Askage** and click the **Pin** icon to make it easily accessible.
 
-Hurray! 🎉 Askage is now installed in your browser!
+✅ Askage is now installed and ready to use! 🎉
 
-## Reload Extension
+## 🔁 Reloading the Extension
 
-Whenever you make changes to the frontend code, you’ll need to reload the extension to see the updates. Here’s how:
+To see changes after editing the code:
 
-1. In the `/frontend` directory, run `npm run build` to rebuild the extension.
-2. Open `chrome://extensions` and click the **Reload** button for the Askage extension.
+1. Run `npm run build` inside the `/frontend` directory.
+2. Go to `chrome://extensions` and click **Reload** under the Askage extension.
 
-All done! 🎉 Your changes to Askage are now live.
+> [!TIP]  
+> Keep the `chrome://extensions` page open during development for quick reloading.
 
-> [!TIP]
-> Keep the `chrome://extensions` page open in a separate tab during development, as you'll need to reload the extension frequently after making changes.
+## 🤝 Contributing
 
-## Contributing
+Before submitting a PR, please ensure:
 
-Before contributing, please ensure:
+- Your code is tested and free of errors.
+- You’ve followed proper formatting and best practices.
 
-- You've thoroughly tested your code and resolved any errors.
-- Your code is properly formatted and follows best practices.
+### Submit a Pull Request
 
-Failure to follow these steps may result in your PR being declined or requiring additional changes.
+1. Push your changes to your forked repository.
+2. Open a pull request to the master branch using the format:  
+   `#<issue-number> - <feature-title>`  
+   Example: `#5 - Added basic authentication`
 
-Once you're ready to contribute your changes to the master repository, follow these steps:
+3. Wait for a mentor to review your PR. Monitor for any requested changes.
 
-- <TODO: Add steps>
-
-Thank you for contributing to Askage! 💻🚀
+Thanks for contributing to **Askage**! 💻🚀
