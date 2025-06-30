@@ -1,4 +1,9 @@
 # Askage (OSoC 2025)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Google Chrome](https://img.shields.io/badge/Google%20Chrome-4285F4?style=for-the-badge&logo=GoogleChrome&logoColor=white)
+
 ![Askage Banner](https://github.com/upes-open/OSoC-25-Askage/blob/main/assets/askage_banner_round.png)
 Minimalist, context-aware chat extension for Chrome that enhances any webpage.
 
