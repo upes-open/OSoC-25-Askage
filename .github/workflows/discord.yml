@@ -1,0 +1,43 @@
+name: Notify Discord
+
+on:
+  push:
+  issues:
+  issue_comment:
+  pull_request:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify on push
+        if: github.event_name == 'push'
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: "🚀 Push by **${{ github.actor }}** to `${{ github.ref_name }}` in **${{ github.repository }}**"
+
+      - name: Notify on issue activity
+        if: github.event_name == 'issues'
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: "🐛 Issue **${{ github.event.action }}** by **${{ github.actor }}**: *${{ github.event.issue.title }}*"
+
+      - name: Notify on issue comment
+        if: github.event_name == 'issue_comment'
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: "💬 Comment by **${{ github.actor }}** on issue *${{ github.event.issue.title }}*: “${{ github.event.comment.body }}”"
+
+      - name: Notify on pull request
+        if: github.event_name == 'pull_request'
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: "📦 PR **${{ github.event.action }}** by **${{ github.actor }}**: *${{ github.event.pull_request.title }}*"
