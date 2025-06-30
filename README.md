@@ -1,5 +1,5 @@
 # Askage (OSoC 2025)
-![Askage Banner](https://raw.githubusercontent.com/upes-open/OSoC-25-Askage/refs/heads/main/assets/askage_banner.png?token=GHSAT0AAAAAADEMM25P3HRQS3XXBF73GZI22DCPS3Q)
+![Askage Banner](https://raw.githubusercontent.com/upes-open/OSoC-25-Askage/refs/heads/main/assets/askage_banner_round.png?token=GHSAT0AAAAAADEMM25P3HRQS3XXBF73GZI22DCPS3Q)
 Minimalist, context-aware chat extension for Chrome that enhances any webpage.
 
 ## Description
