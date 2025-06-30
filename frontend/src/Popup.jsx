@@ -1,9 +1,10 @@
 import './Popup.css'
+import ChatScreen from './ChatScreen'
 
 function App() {
   return (
     <>
-      <div id='popup-heading'>ASKAGE</div>
+      <ChatScreen />
     </>
   )
 }
