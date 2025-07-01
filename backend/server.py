@@ -1,7 +1,7 @@
 from flask import Flask
 from dotenv import load_dotenv
 import os
-from api import ping
+from api import ping,chat
 load_dotenv()
 
 # Configurations
@@ -12,6 +12,7 @@ app: Flask = Flask(__name__)
 
 # Register blueprints
 app.register_blueprint(ping.blueprint, url_prefix="/api")
+app.register_blueprint(chat.blueprint, url_prefix="/api")
 
 # Run development server
 if DEBUG:
