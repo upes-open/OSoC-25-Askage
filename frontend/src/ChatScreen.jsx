@@ -1,11 +1,16 @@
-import './ChatScreen.css'
+import "./ChatScreen.css";
+import Heading from "./Heading";
+import MessageBox from "./MessageBox";
+import ChatHistory from "./ChatHistory";
 
 function ChatScreen() {
   return (
     <>
-      <div id='popup-heading'>ASKAGE</div>
+      <Heading />
+      <ChatHistory />
+      <MessageBox />
     </>
-  )
+  );
 }
 
-export default ChatScreen
+export default ChatScreen;

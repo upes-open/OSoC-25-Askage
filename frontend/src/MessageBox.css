@@ -1,0 +1,10 @@
+#message {
+  display: flex;
+  margin-block: 1rem;
+  gap: 7.5px;
+}
+
+#message-box {
+  padding: 0.5rem;
+  border-radius: 5px;
+}

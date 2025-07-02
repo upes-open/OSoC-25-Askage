@@ -1,12 +1,12 @@
-import './Popup.css'
-import ChatScreen from './ChatScreen'
+import "./Popup.css";
+import ChatScreen from "./ChatScreen";
 
 function App() {
   return (
     <>
       <ChatScreen />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
