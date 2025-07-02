@@ -1,12 +1,24 @@
+import React, { useEffect } from "react";
 import "./MessageBox.css";
 
-function MessageBox() {
+const MessageBox = ({ inputRef }) => {
+  useEffect(() => {
+    if (inputRef?.current) {
+      inputRef.current.focus(); 
+    }
+  }, []);
+
   return (
-    <div id="message">
-      <input type="text" id="message-box" placeholder="Summarize their profile" />
-      <button id="send-button">ASK</button>
+    <div className="message-box">
+      <input
+        type="text"
+        placeholder="Type your message..."
+        ref={inputRef}
+        className="message-input"
+      />
     </div>
   );
-}
+};
 
 export default MessageBox;
+
