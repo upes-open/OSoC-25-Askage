@@ -1,11 +1,15 @@
 #chat-history {
-  height: 100px;
-  width: 250px;
   overflow-x: hidden;
-  background-color: white;
-  color: black;
   padding: 0.5rem;
-  font-size: 14px;
   border-radius: 5px;
-  margin-top: 1.5rem;
+  margin-top: 5px;
+  flex: 1;
+}
+
+#chat-bubble-container {
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }

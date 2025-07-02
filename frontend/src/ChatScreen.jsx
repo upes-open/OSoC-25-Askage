@@ -5,11 +5,11 @@ import ChatHistory from "./ChatHistory";
 
 function ChatScreen() {
   return (
-    <>
+    <div id="chat-screen">
       <Heading />
       <ChatHistory />
       <MessageBox />
-    </>
+    </div>
   );
 }
 
