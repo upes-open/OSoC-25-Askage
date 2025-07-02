@@ -3,12 +3,12 @@ import Heading from "./Heading";
 import MessageBox from "./MessageBox";
 import ChatHistory from "./ChatHistory";
 
-function ChatScreen() {
+function ChatScreen({ inputRef }) {
   return (
     <div id="chat-screen">
       <Heading />
       <ChatHistory />
-      <MessageBox />
+      <MessageBox inputRef={inputRef} /> 
     </div>
   );
 }
