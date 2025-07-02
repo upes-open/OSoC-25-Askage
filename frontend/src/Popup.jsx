@@ -1,16 +1,20 @@
-import React, { useRef } from "react";
-import MessageBox from "./MessageBox";
+import { useRef, useEffect } from "react";
 import "./Popup.css";
+import ChatScreen from "./ChatScreen";
 
-const Popup = () => {
-  const inputRef = useRef(null); 
+function App() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus(); 
+  }, []);
 
   return (
-    <div className="popup-container">
-      <MessageBox inputRef={inputRef} />
-    </div>
+    <>
+      <ChatScreen inputRef={inputRef} />
+    </>
   );
-};
+}
 
-export default Popup;
+export default App;
 
