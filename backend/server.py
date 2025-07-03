@@ -5,7 +5,7 @@ from api import ping
 load_dotenv()
 
 # Configurations
-DEBUG: bool = os.getenv("DEBUG")
+DEBUG: bool = (os.getenv("DEBUG") == "true")
 
 # Root server
 app: Flask = Flask(__name__)

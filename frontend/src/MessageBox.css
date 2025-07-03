@@ -1,0 +1,40 @@
+#message {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  gap: 7.5px;
+  width: 100%;
+}
+
+#message-box {
+  padding: 0.5rem 0.8rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 0.7em;
+  flex: 1;
+  border: none;
+  font-size: 13px;
+  outline: none;
+}
+
+#message-box::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+#send-button {
+  background-color: rgb(45, 75, 207);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.7em;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+#send-button:hover {
+  background-color: rgb(42, 68, 189);
+}
+
+#send-button:active {
+  background-color: rgb(32, 53, 148);
+}

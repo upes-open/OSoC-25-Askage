@@ -1,0 +1,10 @@
+.user-message {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.user-message .message-text {
+    background: #323445;
+    color: white;
+}

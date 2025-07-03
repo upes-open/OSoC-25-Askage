@@ -6,7 +6,7 @@ blueprint: Blueprint = Blueprint(title, title)
 @blueprint.get("/ping/")
 def endpoint():
     """
-    Sample endpoint to ping backend server.
+    Checks backend and MongoDB connection.
     """
     
     return "", 204

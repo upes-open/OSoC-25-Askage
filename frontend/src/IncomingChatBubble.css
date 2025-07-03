@@ -1,0 +1,24 @@
+.ai-message {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+
+.ai-message .message-text {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    margin-left: 5px;
+}
+
+.ai-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.ai-avatar svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}

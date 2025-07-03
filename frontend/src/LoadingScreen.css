@@ -1,0 +1,11 @@
+#loading-screen {
+    width: 330px;
+    height: 520px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #121212;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
