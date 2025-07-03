@@ -2,6 +2,17 @@ import "./LoginScreen.css";
 import icon from './assets/icon.png'
 
 function LoginScreen({ authState }) {
+
+  function googleLogin() {
+    chrome.runtime.sendMessage({ type: "GOOGLE_SIGN_IN" }, (response) => {
+      if (response?.user) {
+        alert("Logged in as:", response.user.name);
+      } else {
+        alert("Login failed:", response.error);
+      }
+    });
+  }
+
   return (
     <div id="login-screen" style={{ display: (authState === "false") ? "flex" : "none" }}>
       <div className="login-content">
@@ -21,7 +32,7 @@ function LoginScreen({ authState }) {
             <span>Login with</span>
           </div>
 
-          <button className="google-login-btn">
+          <button className="google-login-btn" onClick={googleLogin}>
             <div className="google-icon">
               <svg width="18" height="18" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
