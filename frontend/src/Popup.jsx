@@ -8,7 +8,7 @@ function App() {
   const [authState, setAuthState] = useState(null);
 
   useEffect(() => {
-    setAuthState("false");  // Display Login Screen (No JS Logic for now)
+    setAuthState("true");  // Hardcoded: No JS Logic for now
   }, []);
 
   return (

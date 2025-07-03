@@ -8,7 +8,7 @@
 
 #message-box {
   padding: 0.5rem 0.8rem;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
   color: white;
   border-radius: 0.7em;
   flex: 1;
@@ -18,7 +18,7 @@
 }
 
 #message-box::placeholder {
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 #send-button {
