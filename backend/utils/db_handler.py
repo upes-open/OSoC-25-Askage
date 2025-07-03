@@ -1,4 +1,5 @@
-from pymongo import MongoClient
+import secrets
+from pymongo import MongoClient, errors
 
 
 class MongoHandler:
@@ -21,8 +22,7 @@ class MongoHandler:
         """
         Generates a unique session token.
         """
-        
-        # TODO: Return random 32-bit token generated using secrets module.
+        return secrets.token_hex(16)
     
     def register_google_user(
         self,
@@ -34,9 +34,33 @@ class MongoHandler:
         Returns: auth_token
         """
 
-        # Use `self.db`
-        
-        # TODO: Must return auth_token in format: "<user-id>:<session-token>"
+        try:
+            if not type or not google_sub:
+                raise Exception("Both 'type' and 'google_sub' must be provided.")
+
+            collection = self.db["users"]
+            session_token = self.generate_session_token()
+
+            existing_user = collection.find_one({"google_sub": google_sub})
+
+            if existing_user:
+                collection.update_one(
+                    {"_id": existing_user["_id"]},
+                    {"$set": {"session_token": session_token}}
+                )
+                return f"{str(existing_user['_id'])}:{session_token}"
+            else:
+                result = collection.insert_one({
+                    "type": type,
+                    "google_sub": google_sub,
+                    "session_token": session_token
+                })
+                return f"{str(result.inserted_id)}:{session_token}"
+
+        except errors.PyMongoError as e:
+            raise Exception(f"MongoDB error: {e}")
+        except Exception as e:
+            raise Exception(f"Error: {e}")
         
     def new_conversation(
         self,
