@@ -1,5 +1,4 @@
-from flask import Blueprint, jsonify
-from mongo_handler import db
+from flask import Blueprint
 
 title: str = "ping"
 blueprint: Blueprint = Blueprint(title, title)
@@ -9,15 +8,5 @@ def endpoint():
     """
     Checks backend and MongoDB connection.
     """
-    try:
-        collections = db.list_collection_names()
-        return jsonify({
-            "message": "Pong!",
-            "mongo_collections": collections
-        }), 200
-
-    except Exception as e:
-        return jsonify({
-            "message": "MongoDB connection failed",
-            "error": str(e)
-        }), 500
+    
+    return "", 204
