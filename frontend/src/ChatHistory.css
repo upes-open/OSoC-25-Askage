@@ -1,15 +1,38 @@
 #chat-history {
   overflow-x: hidden;
+  overflow-y: auto;
   padding: 0.5rem;
   border-radius: 5px;
-  margin-top: 5px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-#chat-bubble-container {
+.message {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: top;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  animation: messageSlideIn 0.3s ease-out;
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-text {
+  padding: 10px 15px;
+  border-radius: 17px;
+  font-size: 14px;
+  line-height: 1.35;
+  word-wrap: break-word;
+  max-width: 65%;
 }
