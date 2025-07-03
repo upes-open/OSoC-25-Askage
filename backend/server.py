@@ -2,6 +2,9 @@ from flask import Flask
 from dotenv import load_dotenv
 import os
 from api import ping
+from api import post_conversation
+
+
 load_dotenv()
 
 # Configurations
@@ -20,3 +23,4 @@ if DEBUG:
         host="0.0.0.0",
         port=80
     )
+app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
