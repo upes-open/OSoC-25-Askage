@@ -16,3 +16,24 @@ class MongoHandler:
             cls.db = cls._client["askage"]
             
         return cls._instance
+    
+    def generate_session_token(self) -> str:
+        """
+        Generates a unique session token.
+        """
+        
+        # TODO: Return random 32-bit token generated using secrets module.
+    
+    def register_google_user(
+        self,
+        type: str,
+        google_sub: str
+    ) -> str:
+        """
+        Adds user details to registered users in Database.
+        Returns: auth_token
+        """
+
+        # Use `self.db`
+        
+        # TODO: Must return "True" on success and "False" on failure
