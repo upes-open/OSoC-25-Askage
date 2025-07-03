@@ -28,7 +28,7 @@ function ChatScreen({ authState }) {
   }, authState);
 
   return (
-    <div id="chat-screen" style={{ display: (authState === true) ? "flex" : "none" }}>
+    <div id="chat-screen" style={{ display: (authState === "true") ? "flex" : "none" }}>
       <Heading />
       <ChatHistory messages={messages} />
       <MessageBox inputRef={inputRef} />
