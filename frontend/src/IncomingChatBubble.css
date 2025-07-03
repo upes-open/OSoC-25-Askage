@@ -1,3 +1,13 @@
-#incoming-chat-bubble {
-  display: block;
+.chat-bubble-container.incoming {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.incoming-chat-bubble {
+  background-color: #2a2a2a;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 16px 16px 16px 4px;
+  max-width: 70%;
+  word-wrap: break-word;
 }
