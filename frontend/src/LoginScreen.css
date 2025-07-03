@@ -1,11 +1,186 @@
 #login-screen {
     width: 330px;
     height: 520px;
-    padding: 10px;
+    padding: 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    background-color: #121212;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4472ca 100%);
+    background-image: url('./assets/background.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 40px 30px;
+    text-align: center;
+    z-index: 2;
+}
+
+.logo-container {
+    margin-bottom: 40px;
+}
+
+.question-mark-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.pixel-question {
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    font-family: 'Courier New', monospace;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.brand-section {
+    margin-bottom: 60px;
+}
+
+.brand-title {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    margin: 0 0 16px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: 'Courier New', monospace;
+}
+
+.brand-tagline {
+    font-size: 16px;
+    margin: 0;
+    opacity: 0.9;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.login-section {
+    width: 100%;
+    max-width: 280px;
+}
+
+.login-divider {
+    position: relative;
+    margin-bottom: 24px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.login-divider::before,
+.login-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 60px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.login-divider::before {
+    left: 0;
+}
+
+.login-divider::after {
+    right: 0;
+}
+
+.google-login-btn {
+    width: 100%;
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.google-login-btn:hover {
+    background: #f8f9fa;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+.google-login-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.google-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Add subtle animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-content > * {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+.logo-container {
+    animation-delay: 0.1s;
+}
+
+.brand-section {
+    animation-delay: 0.2s;
+}
+
+.login-section {
+    animation-delay: 0.3s;
+}
+
+/* Responsive adjustments */
+@media (max-height: 600px) {
+    .login-content {
+        padding: 20px 30px;
+    }
+    
+    .logo-container {
+        margin-bottom: 30px;
+    }
+    
+    .brand-section {
+        margin-bottom: 40px;
+    }
+    
+    .brand-title {
+        font-size: 28px;
+    }
 }
