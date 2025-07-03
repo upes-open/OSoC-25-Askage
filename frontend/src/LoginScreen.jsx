@@ -3,7 +3,7 @@ import icon from './assets/icon.png'
 
 function LoginScreen({ authState }) {
   return (
-    <div id="login-screen" style={{ display: (authState === false) ? "flex" : "none" }}>
+    <div id="login-screen" style={{ display: (authState === "false") ? "flex" : "none" }}>
       <div className="login-content">
         <div className="logo-container">
           <div className="question-mark-icon">

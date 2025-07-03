@@ -8,7 +8,7 @@ function App() {
   const [authState, setAuthState] = useState(null);
 
   useEffect(() => {
-    setAuthState("true");  // Hardcoded: No JS Logic for now
+    setAuthState("false");  // Hardcoded: No JS Logic for now
   }, []);
 
   return (
