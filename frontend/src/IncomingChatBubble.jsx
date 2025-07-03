@@ -2,8 +2,8 @@ import "./IncomingChatBubble.css";
 
 function IncomingChatBubble({ message }) {
   return (
-    <div id="chat-bubble-container" style={{ justifyContent: "left" }}>
-      <div id="incoming-chat-bubble">{message}</div>
+    <div className="chat-bubble-container incoming">
+      <div className="incoming-chat-bubble">{message}</div>
     </div>
   );
 }
