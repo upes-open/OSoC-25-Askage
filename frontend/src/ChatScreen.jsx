@@ -4,12 +4,12 @@ import ChatHistory from "./ChatHistory";
 import MessageBox from "./MessageBox";
 import "./ChatScreen.css";
 
-function ChatScreen() {
+function ChatScreen({ inputRef }) {
   const [messages, setMessages] = useState([]);
   const initialized = useRef(false);
 
   const addMessage = (type, content) => {
-    setMessages(prev => [...prev, { type, content }]);
+    setMessages((prev) => [...prev, { type, content }]);
   };
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function ChatScreen() {
     <div id="chat-screen">
       <Heading />
       <ChatHistory messages={messages} />
-      <MessageBox />
+      <MessageBox inputRef={inputRef} />
     </div>
   );
 }
