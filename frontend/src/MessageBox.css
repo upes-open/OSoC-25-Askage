@@ -7,6 +7,7 @@
 }
 
 #message-box {
+  margin-left: 5px;
   padding: 0.5rem 0.8rem;
   background-color: rgba(255, 255, 255, 0.2);
   color: white;
@@ -29,6 +30,7 @@
   border-radius: 0.7em;
   padding: 10px 15px;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 #send-button:hover {
