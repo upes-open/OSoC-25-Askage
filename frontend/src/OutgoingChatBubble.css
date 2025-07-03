@@ -1,64 +1,5 @@
 #outgoing-chat-bubble {
-  display: block;
-}
-
-body {
-    min-width: 300px;
-    padding: 10px;
-    border-radius: 0.2em;
-    background-color: #13161f;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#popup-heading {
-    margin-top: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.chat-container {
-    width: 100%;
-    max-width: 350px;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(135deg, #13161f 0%, #1a1d26 100%);
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    scrollbar-width: thin;
-    scrollbar-color: #2a2d36 #13161f;
-}
-
-.chat-messages::-webkit-scrollbar {
-    width: 6px;
-}
-
-.chat-messages::-webkit-scrollbar-track {
-    background: #13161f;
-}
-
-.chat-messages::-webkit-scrollbar-thumb {
-    background: #2a2d36;
-    border-radius: 3px;
-}
-
-.chat-messages::-webkit-scrollbar-thumb:hover {
-    background: #3a3d46;
+    display: block;
 }
 
 .message {
@@ -74,6 +15,7 @@ body {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -101,8 +43,6 @@ body {
     margin: 8px 0;
 }
 
-
-
 .user-message .message-text {
     background: #5a67d8;
     color: white;
@@ -110,8 +50,7 @@ body {
     margin-right: 8px;
 }
 
-
-.user-message  {
+.user-message {
     text-align: right;
     width: 70%;
 
@@ -122,24 +61,16 @@ body {
 }
 
 @keyframes typing {
-    0%, 60%, 100% {
+
+    0%,
+    60%,
+    100% {
         opacity: 0.3;
         transform: scale(0.8);
     }
+
     30% {
         opacity: 1;
         transform: scale(1);
-    }
-}
-
-/* Responsive adjustments */
-@media (max-width: 320px) {
-    .chat-container {
-        max-width: 280px;
-        height: 450px;
-    }
-    
-    .message-content {
-        max-width: 75%;
     }
 }

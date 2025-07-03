@@ -14,8 +14,10 @@ function ChatScreen({ inputRef }) {
 
   useEffect(() => {
     if (!initialized.current) {
-      addMessage("outgoing", "Hey!");
-      addMessage("incoming", "Askage this side!");
+      addMessage("incoming", "Hey! What do you need help with today?");
+      addMessage("outgoing", "Can you help me summarize this person's work experience in a few sentences?");
+      addMessage("incoming", "Here's a concise summary...");
+      addMessage("incoming", "Thanks");
       initialized.current = true;
     }
   }, []);
