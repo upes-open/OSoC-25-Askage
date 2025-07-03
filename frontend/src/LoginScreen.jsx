@@ -4,14 +4,21 @@ import icon from './assets/icon.png'
 function LoginScreen({ authState }) {
 
   function googleLogin() {
-    chrome.runtime.sendMessage({ type: "GOOGLE_SIGN_IN" }, (response) => {
-      if (response?.user) {
-        alert("Logged in as:", response.user.name);
-      } else {
-        alert("Login failed:", response.error);
-      }
-    });
-  }
+  chrome.runtime.sendMessage({ type: "GOOGLE_SIGN_IN" }, async (response) => {
+    if (response?.token) {
+      const userInfo = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+        headers: {
+          Authorization: `Bearer ${response.token}`
+        }
+      }).then(res => res.json());
+
+      alert(`Logged in as: ${userInfo.name}\nEmail: ${userInfo.email}`);
+    } else {
+      alert("Login failed: " + response?.error);
+    }
+  });
+}
+
 
   return (
     <div id="login-screen" style={{ display: (authState === "false") ? "flex" : "none" }}>
