@@ -1,14 +1,32 @@
-import "./ChatScreen.css";
+import { useState, useEffect, useRef } from "react";
 import Heading from "./Heading";
-import MessageBox from "./MessageBox";
 import ChatHistory from "./ChatHistory";
+import MessageBox from "./MessageBox";
+import "./ChatScreen.css";
 
 function ChatScreen({ inputRef }) {
+  const [messages, setMessages] = useState([]);
+  const initialized = useRef(false);
+
+  const addMessage = (type, content) => {
+    setMessages((prev) => [...prev, { type, content }]);
+  };
+
+  useEffect(() => {
+    if (!initialized.current) {
+      addMessage("incoming", "Hey! What do you need help with today?");
+      addMessage("outgoing", "Can you help me summarize this person's work experience in a few sentences?");
+      addMessage("incoming", "Here's a concise summary...");
+      addMessage("incoming", "Thanks");
+      initialized.current = true;
+    }
+  }, []);
+
   return (
     <div id="chat-screen">
       <Heading />
-      <ChatHistory />
-      <MessageBox inputRef={inputRef} /> 
+      <ChatHistory messages={messages} />
+      <MessageBox inputRef={inputRef} />
     </div>
   );
 }
