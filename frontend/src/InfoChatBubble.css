@@ -1,0 +1,8 @@
+#info-chat-bubble {
+  text-align: center;
+  background-color: rgb(255, 255, 105);
+  color: black;
+  padding: 0.5rem;
+  border-radius: 1.25rem;
+  margin-bottom: 0.5rem;
+}
