@@ -11,6 +11,11 @@
     background-image: url('./assets/background.svg');
     background-size: cover;
     background-repeat: no-repeat;
+    justify-content: space-evenly;
+    align-items: center;
+    background-image: url('./assets/background.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
     color: white;
     font-family: 'Segoe UI', sans-serif;
 }

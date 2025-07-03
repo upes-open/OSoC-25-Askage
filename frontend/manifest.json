@@ -2,6 +2,11 @@
     "manifest_version": 3,
     "name": "Askage — Simple Chat for Webpages",
     "version": "1.0",
+    "key": "MD8EPwIBADANCgYJKj9IPz8NCgEBAQUABD8EPzA/BD8CAQACPwEBAD9QP1w/Pz8/PwE/IT8/DQppP08/cH9vBz8/Pz8/Pz8/P18/PxgQP2U/P2k/Pz8/PwcvPwc/Rzg/dUVjPxA/PxI/Qz9cPykSTHV8PyRAKj9xQz8/Pxg1Pz9RP3A/KXk/CwE/ahk/Lz8zPz8/Pz8Xfj8/E24NCj8/Dz8/Gn0/Pz9qPxg/Pz9cRjQHPzFGHT8/CT8cP2NtP2A/AEA/Pz8/PyVnPz8zP18/Ej0/P1gxPz8/Pz8/b1w/IjpiPzFiRD8/VT8QFXMpPz8/Zj8+Wj8xSz96Jj8/Pz8rP0k/YjVLP3I/P0JXPz8/Pz8lJmw/P3c/Pzs/Mj91Pz85TRMsP1I/Pz8eewIDAQABAj8BAAA/aT91fig/OD86TD9jdT9NPz55Pz8/TT8/Pz8/Pz8/Py98P2EmFT8/P1k/Pz8NCktVFDg/Pz8na1w/P0tFTD9rPwk/NUJQPz8/PyRYDQp+SmdBP3A/PydqPy4/Pz8/Pz8/QT9EPzY/Pxc/OiljJTpLPX96cBg/OT9pPz8iP0xaPz8/UWVqP3Q/ED8CLz9Bb0E/DDlWP3U/Pz93CEV1SDBDBz8/QDFJRD8DP2coP3c/Ejo/PzE/Pz9yRVkSPyJJPz8wZj9GPz9gHT8SPx5jCT8/bD8XPz9HPyg/Zz8/cD8/VT9cNz8DP0sDPz8wPzA/BWArPy4/Pz8/YT8/PHUcPz8/PwI/PwA/P3kqP1s/Aj8/VHQ/Pwx3UDI/AmE/Pz9MIGc/Pz9XWT8/PUU/Pz9mPzIMSz8XP0M/P1YwPz9MIj8/T2VwLz9+Pz9rUXI/PzkCPyI2RmlfPyNQQ2o/bz8ZPzUmPyw/DQoVHis/P2UmED9EBj86ZyI/Pz80PyN/Lj8/P3hOPz8/Pz8CPz8APxwoP3NAPz8/P2k/eTI/anA/P3dNPz8/P0E/PzE/Pz8/QyJ2S1p7PiM/P1Y9bEo/Pw4/Pz8TFT8/Pxk/PwhYP1QWP0EyPyYzPwhFP3U/az8GP24/RT9DYz8/P2tGPz8XPz9JUz8BP1U/Pz8/Pz8DPz8/fghdPz8/Kn4rPz9Acz8CPz8APwY+P0U/Pzc/C00/Pz8/P25qSkQ/Gz9aDkA/DG4/dWNtaUpzP29EPz89fj8/cU4/ZiN+UlcnPz8/ET8/EjI/Pz8wPzY/LkdpPz9ZPzpYaj8/Pz97agI/dT83PwFyPz8/PwAsLQ0KPxY/eT9RPx0/dz8/QD9HBz8/Pz8wPz8/Pz9BAj8/Pz8/ASMxTQw/Rj9bWz9xPxw/Pz8/eDNIP24/P0w/Pw4tPz85Pz8hKz8zP3pvPz8/Rxk/dD8/LAE/JQAuCEgjP1sBWxM/CX4gPwEbPz8IdD8/Px85aD8/aD8/Pz8BFxc/Lkw/Pz8/Pz8MPz9hPz8/XR5FNj8/ZC8/Pz9dPwA/PxECPz8AP0kHPwY/P1k/IGN3Nz8/ZR8/GD9LbFZzPzE/Pz8/Bj8/Fj8/TUsICQs/Hj8/Vm9RRD8/Pyc/f0NmPz8/Zj8/P1Y/QCQ/Pj4/P2VoLD8lPy5VFjo/Pw9OPz8/P0k/P2YZPz8/YzI/HlI/UTw/ezEuPz8/JX90clA/EGBGP1g/Pz8NCg==",
+    "oauth2": {
+        "client_id": "712242987155-1hmkubdq1tf2ipide0jfpbd6b2jaqn50.apps.googleusercontent.com",
+        "scopes": ["email", "profile"]
+    },
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
@@ -16,9 +21,14 @@
         "128": "icons/icon128.png"
     },
     "permissions": [
+        "identity",
         "scripting",
         "activeTab",
         "storage"
     ],
-    "host_permissions": ["<all_urls>"]
+    "host_permissions": ["<all_urls>"],
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    }
 }
