@@ -1,4 +1,3 @@
-/* Loading Screen */
 #loading-screen {
     width: 330px;
     height: 520px;
@@ -15,27 +14,25 @@
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* Loader */
-#loader{
+#loader {
     height: 100px;
     width: 100px;
     border: 10px solid rgb(49, 49, 208);
     border-top: 10px solid grey;
     border-radius: 50%;
-   animation: spin 1s linear infinite; 
+    animation: spin 1s linear infinite;
 }
 
-/* Spin Animation */
 @keyframes spin {
     0% {
         transform: rotate(0deg);
-    } 
+    }
+
     100% {
         transform: rotate(360deg);
     }
 }
 
-/* Loading Text */
-#loader-screen-info{
+#loader-screen-info {
     font-size: 1rem;
 }
