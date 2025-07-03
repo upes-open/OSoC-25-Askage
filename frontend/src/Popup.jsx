@@ -1,17 +1,19 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import "./Popup.css";
 import ChatScreen from "./ChatScreen";
+import LoginScreen from "./LoginScreen";
 
 function App() {
-  const inputRef = useRef(null);
+  const [authState, setAuthState] = useState(null);
 
   useEffect(() => {
-    inputRef.current?.focus(); 
+    setAuthState(false);  // Display Login Screen (No JS Logic for now)
   }, []);
 
   return (
     <>
-      <ChatScreen inputRef={inputRef} />
+      <ChatScreen authState={authState} />
+      <LoginScreen authState={authState} />
     </>
   );
 }

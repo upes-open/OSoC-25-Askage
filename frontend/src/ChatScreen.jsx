@@ -4,9 +4,10 @@ import ChatHistory from "./ChatHistory";
 import MessageBox from "./MessageBox";
 import "./ChatScreen.css";
 
-function ChatScreen({ inputRef }) {
+function ChatScreen({ authState }) {
   const [messages, setMessages] = useState([]);
   const initialized = useRef(false);
+  const inputRef = useRef(null);
 
   const addMessage = (type, content) => {
     setMessages((prev) => [...prev, { type, content }]);
@@ -22,8 +23,12 @@ function ChatScreen({ inputRef }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (authState === true) inputRef.current?.focus();
+  }, authState);
+
   return (
-    <div id="chat-screen">
+    <div id="chat-screen" style={{ display: (authState === true) ? "flex" : "none" }}>
       <Heading />
       <ChatHistory messages={messages} />
       <MessageBox inputRef={inputRef} />
