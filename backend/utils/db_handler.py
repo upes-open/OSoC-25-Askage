@@ -36,4 +36,17 @@ class MongoHandler:
 
         # Use `self.db`
         
-        # TODO: Must return "True" on success and "False" on failure
+        # TODO: Must return auth_token in format: "<user-id>:<session-token>"
+        
+    def new_conversation(
+        self,
+        user_id: str
+    ) -> str:
+        """
+        Creates a new conversation in Database.
+        Returns: conversation_id
+        """
+
+        # Use `self.db`
+        
+        # TODO: Must return conversation id (that's the _id of document just created)
