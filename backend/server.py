@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 from api import ping
 from api import post_conversation
+from api import auth
 
 
 load_dotenv()
@@ -15,6 +16,8 @@ app: Flask = Flask(__name__)
 
 # Register blueprints
 app.register_blueprint(ping.blueprint, url_prefix="/api")
+app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
+app.register_blueprint(auth.blueprint, url_prefix='/api')
 
 # Run development server
 if DEBUG:
@@ -23,4 +26,3 @@ if DEBUG:
         host="0.0.0.0",
         port=80
     )
-app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
