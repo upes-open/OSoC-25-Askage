@@ -3,6 +3,7 @@ import Heading from "./Heading";
 import ChatHistory from "./ChatHistory";
 import MessageBox from "./MessageBox";
 import "./ChatScreen.css";
+import backgroundImage from "./assets/background.svg"
 
 function ChatScreen({ authState }) {
   const [messages, setMessages] = useState([]);
@@ -28,7 +29,7 @@ function ChatScreen({ authState }) {
   }, authState);
 
   return (
-    <div id="chat-screen" style={{ display: (authState === "true") ? "flex" : "none" }}>
+    <div id="chat-screen" style={{ display: (authState === "true") ? "flex" : "none", backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${backgroundImage})` }}>
       <Heading />
       <ChatHistory messages={messages} />
       <MessageBox inputRef={inputRef} />

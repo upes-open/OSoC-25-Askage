@@ -5,6 +5,7 @@
 }
 
 .user-message .message-text {
-    background: #323445;
+    background-color: rgba(16, 14, 27, 0.7);
+    backdrop-filter: blur(10px);
     color: white;
 }
