@@ -4,6 +4,8 @@ from utils.db_handler import MongoHandler
 title: str = "post_conversation"
 blueprint: Blueprint = Blueprint(title, title)
 
+db: MongoHandler = MongoHandler() 
+
 @blueprint.post("/conversations/")
 def create_conversation():
     """
