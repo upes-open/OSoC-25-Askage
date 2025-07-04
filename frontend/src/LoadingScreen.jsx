@@ -1,15 +1,28 @@
-import "./LoadingScreen.css";
+const googleLogin = () => {
+  chrome.runtime.sendMessage({ type: "GOOGLE_SIGN_IN" }, (response) => {
+    if (chrome.runtime.lastError) {
+      console.error("Runtime error:", chrome.runtime.lastError.message);
+      return;
+    }
 
-function LoadingScreen({ authState }) {
-  return (
-    <div id="loading-screen" style={{ display: (authState === "loading") ? "flex" : "none" }}>
-      <div id="loader"></div>
+    if (response.error) {
+      console.error("Login failed:", response.error);
+    } else {
+      console.log("Google Token:", response.token);
 
-      <div id="loader-screen-info">
-        Great things take time...
-      </div>
-    </div>
-  );
-}
-
-export default LoadingScreen;
+      // Optional: fetch profile
+      fetch("https://www.googleapis.com/oauth2/v1/userinfo?alt=json", {
+        headers: {
+          Authorization: `Bearer ${response.token}`
+        }
+      })
+        .then(res => res.json())
+        .then(profile => {
+          console.log("User profile:", profile);
+        })
+        .catch(err => {
+          console.error("Profile fetch error:", err);
+        });
+    }
+  });
+};
