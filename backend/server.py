@@ -3,9 +3,15 @@ from dotenv import load_dotenv
 import os
 from api import ping
 from api import post_conversation
-
+from util.db_handler import MongoHandler
 
 load_dotenv()
+
+#Get URI from .env
+MONGO_URI=os.getenv("MONGODB_URI")
+
+#Create MongoHandler instance with URI from .env
+db=MongoHandler(uri=MONGO_URI)
 
 # Configurations
 DEBUG: bool = (os.getenv("DEBUG") == "true")
