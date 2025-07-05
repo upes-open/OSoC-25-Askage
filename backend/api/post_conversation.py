@@ -3,7 +3,13 @@ from utils.db_handler import MongoHandler
 from dotenv import load_dotenv
 import os
 
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../.env"))
+env = os.getenv("ENV", "development")
+
+if env == "production":
+    load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../.env.production"))
+else:
+    load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../.env.development"))
+
 
 title: str = "post_conversation"
 blueprint: Blueprint = Blueprint(title, title)

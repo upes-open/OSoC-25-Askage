@@ -1,2 +1,4 @@
 .env
-requirements.txt
+.env.development
+.env.devexample
+.env.prodexample
