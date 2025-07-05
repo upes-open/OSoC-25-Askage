@@ -7,11 +7,8 @@ from util.db_handler import MongoHandler
 
 load_dotenv()
 
-#Get URI from .env
-MONGO_URI=os.getenv("MONGODB_URI")
-
-#Create MongoHandler instance with URI from .env
-db=MongoHandler(uri=MONGO_URI)
+# Initialize MongoDB
+db: MongoHandler = MongoHandler(uri=os.getenv("MONGODB_URI"))
 
 # Configurations
 DEBUG: bool = (os.getenv("DEBUG") == "true")
