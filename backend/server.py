@@ -6,13 +6,9 @@ from api import post_conversation
 from api import google_auth
 from utils.db_handler import MongoHandler
 
-
 env = os.getenv("ENV", "development")
 
-if env == "production":
-    load_dotenv(".env.production")
-else:
-    load_dotenv(".env.development")
+load_dotenv(".env.production" if (env == "production") else ".env.development")
 
 # Initialize MongoDB
 db: MongoHandler = MongoHandler(uri=os.getenv("MONGODB_URI"))
