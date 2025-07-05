@@ -18,8 +18,8 @@ GOOGLE_REDIRECT_URI: str = os.getenv("GOOGLE_REDIRECT_URI")
 
 title: str = "google_auth"
 blueprint: Blueprint = Blueprint(title, __name__)
-db: MongoHandler = MongoHandler(uri=os.getenv("MONGODB_URI"))
 
+db: MongoHandler = MongoHandler(uri=os.getenv("MONGODB_URI"))
 
 @blueprint.post("/auth/google")
 @limiter.limit("5 per minute")

@@ -19,7 +19,10 @@ DEBUG: bool = (os.getenv("DEBUG") == "true")
 
 # Root server
 app: Flask = Flask(__name__)
+
+# Register Rate Limiter
 limiter.init_app(app)
+
 # Register blueprints
 app.register_blueprint(ping.blueprint, url_prefix="/api")
 app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
