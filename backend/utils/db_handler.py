@@ -1,4 +1,5 @@
-from pymongo import MongoClient
+import secrets
+from pymongo import MongoClient, errors
 
 
 class MongoHandler:
@@ -9,10 +10,10 @@ class MongoHandler:
     _instance = None
     db = None
 
-    def __new__(cls):
+    def __new__(cls, uri):
         if cls._instance is None:
             cls._instance = super(MongoHandler, cls).__new__(cls)
-            cls._client = MongoClient("mongodb://localhost:27017/")
+            cls._client = MongoClient(uri)
             cls.db = cls._client["askage"]
             
         return cls._instance
@@ -21,22 +22,41 @@ class MongoHandler:
         """
         Generates a unique session token.
         """
-        
-        # TODO: Return random 32-bit token generated using secrets module.
+        return secrets.token_hex(16)
     
     def register_google_user(
         self,
-        type: str,
-        google_sub: str
+        google_sub: str,
+        email: str
     ) -> str:
         """
         Adds user details to registered users in Database.
         Returns: auth_token
         """
 
-        # Use `self.db`
+        if not google_sub or not email: raise Exception
+
+        collection = self.db["users"]
+        session_token = self.generate_session_token()
+
+        existing_user = collection.find_one({"google_sub": google_sub})
+
+        if existing_user:
+            collection.update_one(
+                {"_id": existing_user["_id"]},
+                {"$set": {"session_token": session_token, "email": email}}
+            )
+            
+            return f"{str(existing_user['_id'])}:{session_token}"
         
-        # TODO: Must return auth_token in format: "<user-id>:<session-token>"
+        else:
+            result = collection.insert_one({
+                "google_sub": google_sub,
+                "session_token": session_token,
+                "email": email
+            })
+            
+            return f"{str(result.inserted_id)}:{session_token}"
         
     def new_conversation(
         self,
