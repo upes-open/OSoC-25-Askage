@@ -4,3 +4,4 @@ openai
 pymongo
 google-auth
 requests
+gunicorn
