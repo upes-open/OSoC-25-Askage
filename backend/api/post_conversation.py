@@ -6,7 +6,7 @@ import os
 env = os.getenv("ENV", "development")
 
 if env == "production":
-    load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../.env.prodexample"))
+    load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../.env.production"))
 else:
     load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../.env.development"))
 
