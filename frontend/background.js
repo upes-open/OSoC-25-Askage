@@ -35,17 +35,22 @@ function startLoginFlow(sendResponse) {
 }
 
 async function authenticateGoogle(code, sendResponse) {
-  /*
-  TODO: Implement
-    - Send code to backend and receive bearer_token in response body JSON
-    - Then, store that token in chrome.storage.local
-    - Return true or false depending upon success or not
-  */
-
   try {
-    const res = await fetch("https://example.com");
+    const res = await fetch("http://localhost/api/auth/google", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "code": code
+      })
+    });
 
-    const bearerToken = "1234";  // Let's say we got it from backend
+    const json = await res.json();
+    const bearerToken = json["auth_token"];
+    
+    if (json["status"] !== "ok") throw Error();
+    if (!bearerToken) throw Error();
 
     await saveBearer(bearerToken);
     sendResponse(true);

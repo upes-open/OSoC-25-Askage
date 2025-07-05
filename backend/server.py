@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 from api import ping
 from api import post_conversation
-from backend.api import google_auth
+from api import google_auth
 from utils.db_handler import MongoHandler
 
 load_dotenv()

@@ -34,32 +34,29 @@ class MongoHandler:
         Returns: auth_token
         """
 
-        try:
-            if not google_sub or not email: raise Exception
+        if not google_sub or not email: raise Exception
 
-            collection = self.db["users"]
-            session_token = self.generate_session_token()
+        collection = self.db["users"]
+        session_token = self.generate_session_token()
 
-            existing_user = collection.find_one({"google_sub": google_sub})
+        existing_user = collection.find_one({"google_sub": google_sub})
 
-            if existing_user:
-                collection.update_one(
-                    {"_id": existing_user["_id"]},
-                    {"$set": {"session_token": session_token, "email": email}}
-                )
-                
-                return f"{str(existing_user['_id'])}:{session_token}"
-            else:
-                result = collection.insert_one({
-                    "type": type,
-                    "google_sub": google_sub,
-                    "session_token": session_token,
-                    "email": email
-                })
-                
-                return f"{str(result.inserted_id)}:{session_token}"
-
-        except Exception: raise Exception
+        if existing_user:
+            collection.update_one(
+                {"_id": existing_user["_id"]},
+                {"$set": {"session_token": session_token, "email": email}}
+            )
+            
+            return f"{str(existing_user['_id'])}:{session_token}"
+        
+        else:
+            result = collection.insert_one({
+                "google_sub": google_sub,
+                "session_token": session_token,
+                "email": email
+            })
+            
+            return f"{str(result.inserted_id)}:{session_token}"
         
     def new_conversation(
         self,

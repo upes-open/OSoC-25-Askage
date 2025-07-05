@@ -1,10 +1,14 @@
 from flask import Blueprint, jsonify
 from utils.db_handler import MongoHandler
+from dotenv import load_dotenv
+import os
+
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../.env"))
 
 title: str = "post_conversation"
 blueprint: Blueprint = Blueprint(title, title)
 
-db: MongoHandler = MongoHandler() 
+db: MongoHandler = MongoHandler(uri=os.getenv("MONGODB_URI"))
 
 @blueprint.post("/conversations/")
 def create_conversation():
