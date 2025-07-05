@@ -10,10 +10,10 @@ class MongoHandler:
     _instance = None
     db = None
 
-    def __new__(cls):
+    def __new__(cls, uri):
         if cls._instance is None:
             cls._instance = super(MongoHandler, cls).__new__(cls)
-            cls._client = MongoClient("mongodb://localhost:27017/")
+            cls._client = MongoClient(uri)
             cls.db = cls._client["askage"]
             
         return cls._instance

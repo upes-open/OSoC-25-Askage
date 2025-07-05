@@ -4,9 +4,12 @@ import os
 from api import ping
 from api import post_conversation
 from api import auth
-
+from util.db_handler import MongoHandler
 
 load_dotenv()
+
+# Initialize MongoDB
+db: MongoHandler = MongoHandler(uri=os.getenv("MONGODB_URI"))
 
 # Configurations
 DEBUG: bool = (os.getenv("DEBUG") == "true")
