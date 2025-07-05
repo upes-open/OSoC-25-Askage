@@ -5,6 +5,7 @@ from api import ping
 from api import post_conversation
 from api import google_auth
 from utils.db_handler import MongoHandler
+from utils.limiter import limiter
 
 load_dotenv()
 
@@ -16,11 +17,13 @@ DEBUG: bool = (os.getenv("DEBUG") == "true")
 
 # Root server
 app: Flask = Flask(__name__)
-
+limiter.init_app(app)
 # Register blueprints
 app.register_blueprint(ping.blueprint, url_prefix="/api")
 app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
 app.register_blueprint(google_auth.blueprint, url_prefix='/api')
+print(app.view_functions.keys())
+
 
 # Run development server
 if DEBUG:
