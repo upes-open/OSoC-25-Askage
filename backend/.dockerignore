@@ -1,4 +1,4 @@
-.env
 .env.development
 .env.devexample
 .env.prodexample
+__pycache__
