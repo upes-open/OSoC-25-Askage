@@ -18,6 +18,7 @@ app: Flask = Flask(__name__)
 
 # Register blueprints
 app.register_blueprint(ping.blueprint, url_prefix="/api")
+app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
 
 # Run development server
 if DEBUG:
@@ -26,4 +27,3 @@ if DEBUG:
         host="0.0.0.0",
         port=80
     )
-app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
