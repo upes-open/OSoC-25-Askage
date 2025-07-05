@@ -1,20 +1,27 @@
+import { useState } from "react";
 import "./LoginScreen.css";
 import icon from './assets/icon.png'
 
-function LoginScreen({ authState }) {
+function LoginScreen({ authState, setAuthState }) {
+  const [loginError, setLoginError] = useState(null);
 
   function googleLogin() {
-    chrome.runtime.sendMessage({ type: "GOOGLE_SIGN_IN" }, (response) => {
-      if (response?.user) {
-        alert("Logged in as:", response.user.name);
-      } else {
-        alert("Login failed:", response.error);
+    setAuthState("loading");  // Toggle Loading Screen
+
+    chrome.runtime.sendMessage({ type: "GOOGLE_SIGN_IN" }, status => {
+      if (!status) {
+        setLoginError("Couldn't log in");
+        setAuthState("login");
+
+        return;
       }
+
+      setAuthState("chat");
     });
   }
 
   return (
-    <div id="login-screen" style={{ display: (authState === "false") ? "flex" : "none" }}>
+    <div id="login-screen" style={{ display: (authState === "login") ? "flex" : "none" }}>
       <div className="login-content">
         <div className="logo-container">
           <div className="question-mark-icon">
@@ -43,6 +50,9 @@ function LoginScreen({ authState }) {
             </div>
             Continue with Google
           </button>
+
+          {/* TODO: Style this component */}
+          <span style={{ display: (loginError !== null) ? "block" : "none", fontSize: "18px", marginTop: "10px", color: "rgb(234, 159, 159)" }}>{loginError}</span>
         </div>
       </div>
     </div>

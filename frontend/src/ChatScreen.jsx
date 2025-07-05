@@ -26,10 +26,10 @@ function ChatScreen({ authState }) {
 
   useEffect(() => {
     if (authState === true) inputRef.current?.focus();
-  }, authState);
+  }, [authState]);
 
   return (
-    <div id="chat-screen" style={{ display: (authState === "true") ? "flex" : "none", backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${backgroundImage})` }}>
+    <div id="chat-screen" style={{ display: (authState === "chat") ? "flex" : "none", backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${backgroundImage})` }}>
       <Heading />
       <ChatHistory messages={messages} />
       <MessageBox inputRef={inputRef} />
