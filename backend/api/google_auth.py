@@ -8,7 +8,9 @@ from requests import Response
 import os
 from utils.limiter import limiter
 
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../.env"))
+env = os.getenv("ENV", "development")
+
+load_dotenv(".env.production" if (env == "production") else ".env.development")
 
 GOOGLE_CLIENT_ID: str = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET: str = os.getenv("GOOGLE_CLIENT_SECRET")
@@ -16,6 +18,7 @@ GOOGLE_REDIRECT_URI: str = os.getenv("GOOGLE_REDIRECT_URI")
 
 title: str = "google_auth"
 blueprint: Blueprint = Blueprint(title, __name__)
+
 db: MongoHandler = MongoHandler(uri=os.getenv("MONGODB_URI"))
 
 
