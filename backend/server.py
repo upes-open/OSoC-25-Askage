@@ -2,7 +2,14 @@ from flask import Flask
 from dotenv import load_dotenv
 import os
 from api import ping
-load_dotenv()
+
+env = os.getenv("ENV", "development")
+
+if env == "production":
+    load_dotenv(".env.prodexample")
+else:
+    load_dotenv(".env.development")
+
 
 # Configurations
 DEBUG: bool = (os.getenv("DEBUG") == "true")
