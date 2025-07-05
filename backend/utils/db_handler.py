@@ -26,8 +26,8 @@ class MongoHandler:
     
     def register_google_user(
         self,
-        type: str,
-        google_sub: str
+        google_sub: str,
+        email: str
     ) -> str:
         """
         Adds user details to registered users in Database.
@@ -35,8 +35,7 @@ class MongoHandler:
         """
 
         try:
-            if not type or not google_sub:
-                raise Exception("Both 'type' and 'google_sub' must be provided.")
+            if not google_sub or not email: raise Exception
 
             collection = self.db["users"]
             session_token = self.generate_session_token()
@@ -46,21 +45,21 @@ class MongoHandler:
             if existing_user:
                 collection.update_one(
                     {"_id": existing_user["_id"]},
-                    {"$set": {"session_token": session_token}}
+                    {"$set": {"session_token": session_token, "email": email}}
                 )
+                
                 return f"{str(existing_user['_id'])}:{session_token}"
             else:
                 result = collection.insert_one({
                     "type": type,
                     "google_sub": google_sub,
-                    "session_token": session_token
+                    "session_token": session_token,
+                    "email": email
                 })
+                
                 return f"{str(result.inserted_id)}:{session_token}"
 
-        except errors.PyMongoError as e:
-            raise Exception(f"MongoDB error: {e}")
-        except Exception as e:
-            raise Exception(f"Error: {e}")
+        except Exception: raise Exception
         
     def new_conversation(
         self,

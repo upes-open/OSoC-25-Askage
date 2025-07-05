@@ -2,3 +2,5 @@ flask
 python-dotenv
 openai
 pymongo
+google-auth
+requests
