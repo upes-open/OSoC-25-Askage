@@ -5,6 +5,6 @@ def register_error_handlers(app):
     @app.errorhandler(RateLimitExceeded)
     def handle_rate_limit_error(e):
         return jsonify({
-            "error": "Too Many Requests",
-            "message": "You have exceeded the allowed number of requests. Please wait and try again later."
+            "status": "fail",
+            "message": "You sent too many requests. Please slow down!"
         }), 429
