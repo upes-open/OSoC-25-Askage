@@ -6,6 +6,8 @@ from api import post_conversation
 from api import google_auth
 from utils.db_handler import MongoHandler
 from utils.limiter import limiter
+from api import authenticated  # Add this
+
 
 env = os.getenv("ENV", "development")
 
@@ -29,6 +31,8 @@ app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
 app.register_blueprint(google_auth.blueprint, url_prefix='/api')
 print(app.view_functions.keys())
 
+
+app.register_blueprint(authenticated.blueprint, url_prefix="/api")
 
 # Run development server
 if DEBUG:
