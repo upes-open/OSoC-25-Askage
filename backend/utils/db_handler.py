@@ -66,7 +66,24 @@ class MongoHandler:
         Creates a new conversation in Database.
         Returns: conversation_id
         """
+    
+    def verify_auth_token(self, user_id: ObjectId, session_token: str) -> bool:
+        """
+        Verifies if the provided session token is valid for the given user.
+        """
+        try:
+            collection = self.db["users"]
+            user_doc = collection.find_one({"_id": user_id})
 
+            if not user_doc:
+                return False
+
+            return user_doc.get("session_token") == session_token
+
+        except errors.PyMongoError as e:
+            raise Exception(f"Database error: {str(e)}")
+        except Exception as e:
+            raise Exception(f"Unexpected error: {str(e)}")
         # Use `self.db`
         
         # TODO: Must return conversation id (that's the _id of document just created)
