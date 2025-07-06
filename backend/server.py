@@ -4,6 +4,7 @@ import os
 from api import ping
 from api import post_conversation
 from api import google_auth
+from api.errors import blueprint as errors_blueprint
 from utils.db_handler import MongoHandler
 
 load_dotenv()
@@ -21,6 +22,8 @@ app: Flask = Flask(__name__)
 app.register_blueprint(ping.blueprint, url_prefix="/api")
 app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
 app.register_blueprint(google_auth.blueprint, url_prefix='/api')
+app.register_blueprint(errors_blueprint)
+
 
 # Run development server
 if DEBUG:
