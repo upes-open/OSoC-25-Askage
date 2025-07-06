@@ -84,6 +84,3 @@ class MongoHandler:
             raise Exception(f"Database error: {str(e)}")
         except Exception as e:
             raise Exception(f"Unexpected error: {str(e)}")
-        # Use `self.db`
-        
-        # TODO: Must return conversation id (that's the _id of document just created)
