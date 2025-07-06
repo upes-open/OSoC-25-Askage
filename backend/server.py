@@ -6,7 +6,7 @@ from api import post_conversation
 from api import google_auth
 from utils.db_handler import MongoHandler
 from utils.limiter import limiter
-from utils.rate_limit_handler import register_error_handlers
+from utils.rate_limit_handler import register_rate_limit_handler
 
 env = os.getenv("ENV", "development")
 
@@ -24,13 +24,13 @@ app: Flask = Flask(__name__)
 # Register Rate Limiter
 limiter.init_app(app)
 
-register_error_handlers(app) 
 # Register blueprints
 app.register_blueprint(ping.blueprint, url_prefix="/api")
 app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
 app.register_blueprint(google_auth.blueprint, url_prefix='/api')
-print(app.view_functions.keys())
 
+# Register error handlers
+register_rate_limit_handler(app)
 
 # Run development server
 if DEBUG:
