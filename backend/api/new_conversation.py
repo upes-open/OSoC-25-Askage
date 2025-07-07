@@ -3,7 +3,6 @@ from utils.db_handler import MongoHandler
 from dotenv import load_dotenv
 import os
 
-# Load environment based on ENV value
 env = os.getenv("ENV", "development")
 
 if env == "production":

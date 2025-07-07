@@ -4,3 +4,5 @@ openai
 pymongo
 google-auth
 requests
+gunicorn
+flask-limiter
