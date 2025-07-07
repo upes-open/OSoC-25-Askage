@@ -67,6 +67,11 @@ class MongoHandler:
         Returns: conversation_id
         """
 
-        # Use `self.db`
+        try:
+            collection = self.db["conversations"]
+            result = collection.insert_one({"user_id": user_id})
+            return str(result.inserted_id)
+        except errors.PyMongoError as e:
+            raise Exception(f"MongoDB error: {e}")
+
         
-        # TODO: Must return conversation id (that's the _id of document just created)

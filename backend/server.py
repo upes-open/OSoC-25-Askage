@@ -5,7 +5,7 @@ from api import ping
 from api import post_conversation
 from api import google_auth
 from utils.db_handler import MongoHandler
-
+from api import new_conversation
 
 env = os.getenv("ENV", "development")
 
@@ -27,6 +27,7 @@ app: Flask = Flask(__name__)
 app.register_blueprint(ping.blueprint, url_prefix="/api")
 app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
 app.register_blueprint(google_auth.blueprint, url_prefix='/api')
+app.register_blueprint(new_conversation.blueprint, url_prefix="/api")
 
 # Run development server
 if DEBUG:
