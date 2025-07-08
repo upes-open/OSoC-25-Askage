@@ -4,7 +4,7 @@ from decorators.authenticated_request import authenticated
 title: str = "authenticated"
 blueprint: Blueprint = Blueprint(title, title)
 
-@blueprint.get("/authenticated")
+@blueprint.get("/authenticated/")
 @authenticated(allow_unauthenticated=True)
 def check_authentication(user_id: str):
     """

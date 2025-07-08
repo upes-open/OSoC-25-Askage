@@ -35,14 +35,14 @@ def authenticated(allow_unauthenticated: bool = False):
             
             # Invalid authorization header
             if not auth_header or not auth_header.startswith("Bearer "):
-                return func(user_id, *args, **kwargs) if allow_unauthenticated else unauthenticated_response()
+                return func(None, *args, **kwargs) if allow_unauthenticated else unauthenticated_response()
 
             # Parse auth token
             auth_token: str = auth_header.replace("Bearer ", "").strip()
             
             # Invalid auth token
             if ":" not in auth_token:
-                return func(user_id, *args, **kwargs) if allow_unauthenticated else unauthenticated_response()
+                return func(None, *args, **kwargs) if allow_unauthenticated else unauthenticated_response()
             
             # Parse credentials
             user_id: str = auth_token.split(":", 1)[0]
@@ -50,7 +50,7 @@ def authenticated(allow_unauthenticated: bool = False):
             
             # Verify credentials
             if not db.verify_auth_token(user_id, session_token):
-                return func(user_id, *args, **kwargs) if allow_unauthenticated else unauthenticated_response()
+                return func(None, *args, **kwargs) if allow_unauthenticated else unauthenticated_response()
             
             # Call origninal function
             return func(user_id, *args, **kwargs)

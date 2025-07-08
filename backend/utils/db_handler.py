@@ -85,5 +85,5 @@ class MongoHandler:
         
         collection = self.db["users"]
         user_doc = collection.find_one({"_id": ObjectId(user_id)})
-
+        
         return ((user_doc is not None) and (user_doc.get("session_token", "") == session_token))
