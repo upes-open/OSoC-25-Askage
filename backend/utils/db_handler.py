@@ -1,5 +1,7 @@
 import secrets
 from pymongo import MongoClient, errors
+from bson import ObjectId
+
 
 
 class MongoHandler:
@@ -67,9 +69,10 @@ class MongoHandler:
         Returns: conversation_id
         """
         
-        # Use `self.db`
+         # Use `self.db`
 
         # TODO: Must return conversation id (that's the _id of document just created)
+
     
     def verify_auth_token(self, user_id: ObjectId, session_token: str) -> bool:
         """

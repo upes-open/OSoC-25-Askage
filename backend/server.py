@@ -6,12 +6,14 @@ from api import post_conversation
 from api import google_auth
 from api.errors import blueprint as errors_blueprint
 from utils.db_handler import MongoHandler
+from api import new_conversation
 from utils.limiter import limiter
 from utils.rate_limit_handler import register_rate_limit_handler
 from api import authenticated
 env = os.getenv("ENV", "development")
 
 load_dotenv(".env.production" if (env == "production") else ".env.development")
+
 
 # Initialize MongoDB
 db: MongoHandler = MongoHandler(uri=os.getenv("MONGODB_URI"))
@@ -29,6 +31,7 @@ limiter.init_app(app)
 app.register_blueprint(ping.blueprint, url_prefix="/api")
 app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
 app.register_blueprint(google_auth.blueprint, url_prefix='/api')
+app.register_blueprint(new_conversation.blueprint, url_prefix="/api")
 app.register_blueprint(authenticated.blueprint, url_prefix="/api")
 app.register_blueprint(errors_blueprint)
 
