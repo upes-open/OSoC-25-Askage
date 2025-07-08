@@ -70,7 +70,9 @@ class MongoHandler:
         try:
             collection = self.db["conversations"]
             result = collection.insert_one({"user_id": user_id})
+            
             return str(result.inserted_id)
+        
         except Exception as e:
             raise Exception(f"MongoDB error: {e}")
         
