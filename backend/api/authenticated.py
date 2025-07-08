@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from bson import ObjectId
-from backend.utils.db_handler import MongoHandler
+from utils.db_handler import MongoHandler
 
 title: str = "authenticated"
 blueprint: Blueprint = Blueprint(title, title)
@@ -16,10 +16,12 @@ def check_authentication():
     """
     try:
         auth_header = request.headers.get("Authorization", "")
+        
         if not auth_header.startswith("Bearer "):
             return jsonify({"error": "Missing or malformed Authorization header"}), 401
 
         auth_token = auth_header.replace("Bearer ", "").strip()
+        
         if ":" not in auth_token:
             return jsonify({"error": "Invalid auth_token format"}), 401
 
@@ -27,6 +29,7 @@ def check_authentication():
 
         try:
             user_id = ObjectId(user_id)
+            
         except Exception:
             return jsonify({"error": "Invalid user ID format"}), 401
 
