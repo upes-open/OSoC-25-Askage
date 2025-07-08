@@ -5,7 +5,7 @@ install:
 	$(PYTHON) -m pip install -r requirements.txt
 
 run:
-	FLASK_APP=app.py FLASK_ENV=development $(PYTHON) -m flask run
+	$(PYTHON) backend/server.py
 
 docker-build:
-	docker build -t askage-backend .
+	docker build --no-cache -t askage-backend .
