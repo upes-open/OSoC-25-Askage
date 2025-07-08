@@ -8,6 +8,7 @@ def handle_404(e):
     """
     custom handler for 404 error
     """
+    
     return jsonify({
         "status": "fail",
         "error": "This endpoint doesn't exist"

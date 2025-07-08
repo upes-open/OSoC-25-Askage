@@ -1,5 +1,6 @@
 import secrets
 from pymongo import MongoClient, errors
+from bson import ObjectId
 
 
 class MongoHandler:
@@ -70,25 +71,19 @@ class MongoHandler:
         try:
             collection = self.db["conversations"]
             result = collection.insert_one({"user_id": user_id})
+            
             return str(result.inserted_id)
+        
         except Exception as e:
             raise Exception(f"MongoDB error: {e}")
         
     
-    def verify_auth_token(self, user_id: ObjectId, session_token: str) -> bool:
+    def verify_auth_token(self, user_id: str, session_token: str) -> bool:
         """
         Verifies if the provided session token is valid for the given user.
         """
-        try:
-            collection = self.db["users"]
-            user_doc = collection.find_one({"_id": user_id})
+        
+        collection = self.db["users"]
+        user_doc = collection.find_one({"_id": ObjectId(user_id)})
 
-            if not user_doc:
-                return False
-
-            return user_doc.get("session_token") == session_token
-
-        except errors.PyMongoError as e:
-            raise Exception(f"Database error: {str(e)}")
-        except Exception as e:
-            raise Exception(f"Unexpected error: {str(e)}")
+        return ((user_doc is not None) and (user_doc.get("session_token", "") == session_token))

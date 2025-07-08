@@ -32,8 +32,6 @@ app.register_blueprint(google_auth.blueprint, url_prefix='/api')
 app.register_blueprint(authenticated.blueprint, url_prefix="/api")
 app.register_blueprint(errors_blueprint)
 
-print(app.view_functions.keys())
-
 # Register error handlers
 register_rate_limit_handler(app)
 
