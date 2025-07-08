@@ -24,10 +24,8 @@ function App() {
   }
 
   async function verifyBearerToken(bearerToken) {
-    /*
-    TODO: Implement
-      - Implement calling GET /authenticated and getting 200/401 with empty body
-    */
+    // TODO: Implement
+    // GET /authenticated, check status code for 200 or 401
 
     const res = await fetch("https://example.com");
 
