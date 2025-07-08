@@ -5,7 +5,7 @@ install:
 	$(PYTHON) -m pip install -r requirements.txt
 
 run:
-	$(PYTHON) backend/server.py
+	$(PYTHON) server.py
 
 docker-build:
 	docker build --no-cache -t askage-backend .
