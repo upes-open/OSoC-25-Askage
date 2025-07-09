@@ -1,4 +1,4 @@
-PYTHON ?= python3
+PYTHON ?= py
 
 install:
 	$(PYTHON) -m pip install --upgrade pip

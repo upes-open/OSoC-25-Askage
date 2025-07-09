@@ -24,10 +24,6 @@ function App() {
   }
 
   async function verifyBearerToken(bearerToken) {
-    // TODO: Implement
-    // GET /authenticated, check status code for 200 or 401
-
-    console.log(bearerToken)
     try {
       const response = await fetch("http://localhost/api/authenticated/", {
         method: "GET",
@@ -36,17 +32,11 @@ function App() {
         }
       });
 
-      if (response.status === 200) {
-        return true;
-      } else if (response.status === 401) {
-          return false;
-      } else {
-          throw new Error(`Unexpected status: ${response.status}`);
-      }
-    } catch (error) {
-        console.error("Token verification failed:", error);
-        throw new Error("Token verification error");
-    }
+      if (response.status === 200) return true;
+      else if (response.status === 401) return false;
+      else throw new Error(`Unexpected status: ${response.status}`);
+
+    } catch (error) { throw new Error("Token verification error"); }
   }
 
   async function fetchAuthState() {
@@ -61,6 +51,9 @@ function App() {
     // Verify token
     if (!(await verifyBearerToken(bearerToken))) {
       await deleteBearerToken();
+      
+      setAuthState("login");
+      return;
     }
 
     // Authenticated!
