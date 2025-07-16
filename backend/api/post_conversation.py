@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from utils.db_handler import MongoHandler
 from dotenv import load_dotenv
+from decorators.authenticated_request import authenticated
 import os
 
 env = os.getenv("ENV", "development")
@@ -13,14 +14,13 @@ blueprint: Blueprint = Blueprint(title, title)
 db: MongoHandler = MongoHandler(uri=os.getenv("MONGODB_URI"))
 
 @blueprint.post("/conversations/")
-def create_conversation():
+@authenticated(allow_unauthenticated=True)
+def create_conversation(user_id: str):
     """
     Creates a new conversation in the database.
     Returns: JSON with status and conversation_id.
     """
     try:
-        user_id = "00000"  # sample user ID
-    
         conversation_id = db.new_conversation(user_id)
 
         return jsonify({
