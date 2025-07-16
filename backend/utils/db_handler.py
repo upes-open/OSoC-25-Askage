@@ -1,6 +1,7 @@
 import secrets
 from pymongo import MongoClient, errors
-from bson import ObjectId
+# from bson import ObjectId
+from bson.objectid import ObjectId, InvalidId
 
 
 class MongoHandler:
@@ -78,12 +79,27 @@ class MongoHandler:
             raise Exception(f"MongoDB error: {e}")
         
     
-    def verify_auth_token(self, user_id: str, session_token: str) -> bool:
+    def verify_auth_token(self, user_id: str, conversation_id: str) -> bool:
         """
         Verifies if the provided session token is valid for the given user.
+
+         Args:
+        user_id (str): The ID of the user.
+        conversation_id (str): The ID of the conversation to verify.
+
+        Returns:
+            bool: True if the conversation exists for the user, False otherwise.
+
+        Raises:
+            Exception: If any error occurs or the conversation_id is invalid.
         """
-        
-        collection = self.db["users"]
-        user_doc = collection.find_one({"_id": ObjectId(user_id)})
-        
-        return ((user_doc is not None) and (user_doc.get("session_token", "") == session_token))
+        try:
+            conversation_obj_id = ObjectId(conversation_id)
+            collection = self.db["conversations"]
+            result = collection.find_one({
+                "_id": conversation_obj_id,
+                "user_id": user_id
+            })
+            return result is not None
+        except (InvalidId, Exception) as e:
+            raise Exception(f"MongoDB error: {e}")
