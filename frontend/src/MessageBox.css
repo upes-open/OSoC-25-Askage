@@ -33,6 +33,10 @@
   margin-right: 5px;
 }
 
+#send-button:disabled {
+  opacity: 0.3;
+}
+
 #send-button:hover {
   background-color: rgb(42, 68, 189);
 }

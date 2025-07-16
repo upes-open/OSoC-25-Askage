@@ -3,9 +3,9 @@ import InfoChatBubble from "./InfoChatBubble";
 import IncomingChatBubble from "./IncomingChatBubble";
 import OutgoingChatBubble from "./OutgoingChatBubble";
 
-function ChatHistory({ messages }) {
+function ChatHistory({ messages, chatHistoryRef }) {
   return (
-    <div id="chat-history">
+    <div id="chat-history" ref={chatHistoryRef}>
       <InfoChatBubble />
     
       {messages.map((msg, index) =>
