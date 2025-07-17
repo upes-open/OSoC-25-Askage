@@ -61,21 +61,37 @@ function ChatScreen({ authState }) {
 
   const broadcastMessage = async (message) => {
     const webpageContent = webpageContentRaw.split(":")[1];
-
-
-    // TODO: Implement
-    // Send {webpageContent} and {message} in request JSON
-    await fetch("https://example.com");
-
-    // Let's say we got some response back in response body JSON key "response"
-    // If something went wrong, response must be "Something went wrong!"
+    bearerToken = localStorage.getItem("bearerToken");
+    const conversationId = '0000'; // Replace with your actual conversation ID variable
     const response = "<example>";
 
+    try {
+      const res = await fetch(`http://localhost/api/conversations/${conversationId}/messages/`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${bearerToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: message,
+          webpage_content: webpageContent,
+        }),
+      });
 
-    // Add response message
+      if (res.status === 200) {
+        const data = await res.json();
+        response = data.response;
+      } else {
+        console.error(`Unexpected status: ${res.status}`);
+      }
+    } catch (error) {
+      console.error("broadcastMessage error:", error);
+    }
+
     addMessage("incoming", response);
     setMessageBoxEnabled(true);
   };
+
 
   function getBearerToken() {
     return new Promise((resolve) => {
