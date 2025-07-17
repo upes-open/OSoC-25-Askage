@@ -87,6 +87,7 @@ function ChatScreen({ authState }) {
       console.error("broadcastMessage error:", error);
     }
 
+    // Add response message
     addMessage("incoming", response);
     setMessageBoxEnabled(true);
   };
