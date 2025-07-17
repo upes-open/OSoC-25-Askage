@@ -79,7 +79,16 @@ class MongoHandler:
             raise Exception(f"MongoDB error: {e}")
         
     
-    def verify_auth_token(self, user_id: str, conversation_id: str) -> bool:
+    def verify_auth_token(self, user_id: str, session_token: str) -> bool:
+        """
+        Verifies if the provided session token is valid for the given user.
+        """
+        
+        collection = self.db["users"]
+        user_doc = collection.find_one({"_id": ObjectId(user_id)})
+        
+        return ((user_doc is not None) and (user_doc.get("session_token", "") == session_token))
+    def verify_conversation(self, user_id: str, conversation_id: str) -> bool:
         """
         Verifies if the provided session token is valid for the given user.
 
