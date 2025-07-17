@@ -15,6 +15,8 @@ function ChatScreen({ authState }) {
   const [message, setMessage] = useState("");
   const [scrapeCounter, setScrapeCounter] = useState(0);
   const [bearerToken, setBearerToken] = useState("");
+  const [conversationId, setConversationId] = useState(null);
+  const [shouldCreateConversation, setShouldCreateConversation] = useState(true);
 
   const addMessage = (type, content) => {
     setMessages((prev) => [...prev, { type, content }]);
@@ -61,7 +63,6 @@ function ChatScreen({ authState }) {
 
   const broadcastMessage = async (message) => {
     const webpageContent = webpageContentRaw.split(":")[1];
-    const conversationId = '0000';  // TODO: Replace with actual value
     const response = "Ahh! Something went wrong!";
 
     try {
@@ -104,6 +105,41 @@ function ChatScreen({ authState }) {
     setBearerToken(await getBearerToken());
   }
 
+  const createConversation = async () => {
+    if (!shouldCreateConversation) return;
+
+    // TODO: Fix! Session storage is extension-based and not webpage-based
+    const storedConversationId = sessionStorage.getItem("conversation_id");
+    console.log(storedConversationId)
+    if (storedConversationId !== null) {
+      setConversationId(storedConversationId);
+      return;
+    }
+
+    const res = await fetch(`http://localhost/api/conversations/`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${bearerToken}`
+      }
+    });
+
+    try {
+      const res_json = await res.json();
+
+      setConversationId(res_json["conversation_id"]);
+      sessionStorage.setItem("conversation_id", res_json["conversation_id"]);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  useEffect(() => {
+    if (shouldCreateConversation) {
+      setShouldCreateConversation(false);
+      createConversation();
+    }
+  }, [shouldCreateConversation]);
+
   useEffect(() => {
     if (!initialized.current) {
       refreshBearerToken();
@@ -118,11 +154,17 @@ function ChatScreen({ authState }) {
   }, [authState]);
 
   return (
-    <div id="chat-screen" style={{ display: (authState === "chat") ? "flex" : "none", backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${backgroundImage})` }}>
-      <Heading />
-      <ChatHistory chatHistoryRef={chatHistoryRef} messages={messages} />
-      <MessageBox inputRef={inputRef} sendMessage={sendMessage} enabled={messageBoxEnabled} />
-    </div>
+    <>
+      <div id="chat-screen" style={{ display: (authState === "chat" && conversationId != null) ? "flex" : "none", backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${backgroundImage})` }}>
+        <Heading />
+        <ChatHistory chatHistoryRef={chatHistoryRef} messages={messages} />
+        <MessageBox inputRef={inputRef} sendMessage={sendMessage} enabled={messageBoxEnabled} />
+      </div>
+
+      <div id="creating-conversation-screen" style={{ display: (authState === "chat" && conversationId == null) ? "flex" : "none" }}>
+        creating conversation...
+      </div>
+    </>
   );
 }
 
