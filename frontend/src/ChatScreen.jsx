@@ -26,7 +26,7 @@ function ChatScreen({ authState }) {
       if (chatHistoryRef.current) {
         chatHistoryRef.current.scrollTop = chatHistoryRef.current.scrollHeight;
       }
-    }, 0);
+    }, 1);
   };
 
   const sendMessage = (tempMessage) => {
