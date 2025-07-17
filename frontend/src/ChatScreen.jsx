@@ -61,9 +61,8 @@ function ChatScreen({ authState }) {
 
   const broadcastMessage = async (message) => {
     const webpageContent = webpageContentRaw.split(":")[1];
-    bearerToken = localStorage.getItem("bearerToken");
     const conversationId = '0000'; // Replace with your actual conversation ID variable
-    const response = "<example>";
+    let response = "Something went wrong!";
 
     try {
       const res = await fetch(`http://localhost/api/conversations/${conversationId}/messages/`, {
