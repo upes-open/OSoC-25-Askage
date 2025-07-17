@@ -12,6 +12,7 @@ class MongoHandler:
     _instance = None
     db = None
 
+
     def __new__(cls, uri):
         if cls._instance is None:
             cls._instance = super(MongoHandler, cls).__new__(cls)
@@ -20,11 +21,13 @@ class MongoHandler:
             
         return cls._instance
     
+    
     def generate_session_token(self) -> str:
         """
         Generates a unique session token.
         """
         return secrets.token_hex(16)
+    
     
     def register_google_user(
         self,
@@ -60,6 +63,7 @@ class MongoHandler:
             
             return f"{str(result.inserted_id)}:{session_token}"
         
+        
     def new_conversation(
         self,
         user_id: str
@@ -77,7 +81,7 @@ class MongoHandler:
         
         except Exception as e:
             raise Exception(f"MongoDB error: {e}")
-        
+    
     
     def verify_auth_token(self, user_id: str, session_token: str) -> bool:
         """
@@ -88,27 +92,30 @@ class MongoHandler:
         user_doc = collection.find_one({"_id": ObjectId(user_id)})
         
         return ((user_doc is not None) and (user_doc.get("session_token", "") == session_token))
+    
+    
     def verify_conversation(self, user_id: str, conversation_id: str) -> bool:
         """
-        Verifies if the provided session token is valid for the given user.
+        Verifies if the given conversation exists for the given user.
 
-         Args:
-        user_id (str): The ID of the user.
-        conversation_id (str): The ID of the conversation to verify.
+        :param user_id: The ID of the user.
+        :param conversation_id: The ID of the conversation to verify.
 
-        Returns:
-            bool: True if the conversation exists for the user, False otherwise.
+        :return: True if the conversation exists for the user, False otherwise.
 
         Raises:
             Exception: If any error occurs or the conversation_id is invalid.
         """
+        
         try:
-            conversation_obj_id = ObjectId(conversation_id)
             collection = self.db["conversations"]
+            
             result = collection.find_one({
-                "_id": conversation_obj_id,
+                "_id": ObjectId(conversation_id),
                 "user_id": user_id
             })
+            
             return result is not None
-        except (InvalidId, Exception) as e:
-            raise Exception(f"MongoDB error: {e}")
+        
+        except Exception as e:
+            raise Exception(f"Error: {e}")

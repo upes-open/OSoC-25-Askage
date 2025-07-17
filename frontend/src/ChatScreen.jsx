@@ -61,9 +61,8 @@ function ChatScreen({ authState }) {
 
   const broadcastMessage = async (message) => {
     const webpageContent = webpageContentRaw.split(":")[1];
-    bearerToken = localStorage.getItem("bearerToken");
-    const conversationId = '0000'; // Replace with your actual conversation ID variable
-    const response = "<example>";
+    const conversationId = '0000';  // TODO: Replace with actual value
+    const response = "Ahh! Something went wrong!";
 
     try {
       const res = await fetch(`http://localhost/api/conversations/${conversationId}/messages/`, {
@@ -75,12 +74,11 @@ function ChatScreen({ authState }) {
         body: JSON.stringify({
           message: message,
           webpage_content: webpageContent,
-        }),
+        })
       });
 
       if (res.status === 200) {
-        const data = await res.json();
-        response = data.response;
+        response = await res.json()["response"];
       } else {
         console.error(`Unexpected status: ${res.status}`);
       }
@@ -88,6 +86,7 @@ function ChatScreen({ authState }) {
       console.error("broadcastMessage error:", error);
     }
 
+    // Add response message
     addMessage("incoming", response);
     setMessageBoxEnabled(true);
   };
