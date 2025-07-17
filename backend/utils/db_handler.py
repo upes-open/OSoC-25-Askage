@@ -1,7 +1,6 @@
 import secrets
-from pymongo import MongoClient, errors
-# from bson import ObjectId
-from bson.objectid import ObjectId, InvalidId
+from pymongo import MongoClient
+from bson import ObjectId
 
 
 class MongoHandler:

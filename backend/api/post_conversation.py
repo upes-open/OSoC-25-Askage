@@ -20,6 +20,7 @@ def create_conversation(user_id: str):
     Creates a new conversation in the database.
     Returns: JSON with status and conversation_id.
     """
+    
     try:
         conversation_id = db.new_conversation(user_id)
 
