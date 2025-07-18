@@ -162,8 +162,12 @@ function ChatScreen({ authState }) {
       </div>
 
       <div id="creating-conversation-screen" style={{ display: (authState === "chat" && conversationId == null) ? "flex" : "none" }}>
-        creating conversation...
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p className="loading-text">Creating conversation...</p>
+        </div>
       </div>
+
     </>
   );
 }
