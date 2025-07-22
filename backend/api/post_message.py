@@ -13,7 +13,7 @@ blueprint: Blueprint = Blueprint(title, title)
 db: MongoHandler = MongoHandler(uri=os.getenv("MONGODB_URI"))
 
 @blueprint.post("/conversations/<string:conversation_id>/messages/")
-@authenticated(allow_unauthenticated=True)
+@authenticated()
 def post_message(conversation_id: str, user_id: str):
     """
     Endpoint to handle posting a message to a specific conversation.
