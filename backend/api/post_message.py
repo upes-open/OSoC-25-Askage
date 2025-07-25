@@ -25,5 +25,5 @@ def post_message(user_id: str, conversation_id: str):
     except Exception as e:
         return jsonify({
             "status": "fail",
-            "error": str(e)
+            "error": "Something went wrong on our side!"
         }), 500
