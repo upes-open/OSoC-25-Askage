@@ -1,0 +1,297 @@
+0 notifications total
+Skip to search
+Skip to main content
+Keyboard shortcuts
+Close jump menu
+new feed updates notifications
+Home
+My Network
+Jobs
+Messaging
+Notifications
+Me
+For Business
+Reactivate Premium: 50% Off
+Deepak Soni 
+ He/Him
+Sophomore @UPES | Technical Head @IEEE-CS | Aspiring Cloud Engineer | Cloud & DevOps
+UPES
+Gurugram, Haryana, India  Contact info
+805 followers 
+500+ connections
+Open to
+Add profile section
+Enhance profile
+Resources
+Open to work
+
+Software Engineer, Back End Developer, Site Reliability Engineer, Cloud Engineer and Solutions Architect roles
+Show details
+Edit
+Tell non-profits you're interested in getting involved with your time and skills
+Get started
+Suggested for you
+ Private to you
+Add a profile photo to help others recognize you
+Members with a profile photo receive up to 2.3 times as many profile views.
+Add photo
+Analytics
+139 profile views
+Discover who's viewed your profile.
+2,334 post impressions
+Check out who's engaging with your posts.
+Past 7 days
+68 search appearances
+See how often you appear in search results.
+Show all analytics
+About
+I’m an engineering student from India, currently pursuing a B.Tech in Computer Science at UPES, Dehradun.
+Reach me: deepaksonii@outlook.in
+I’m an engineering student from India, currently pursuing a B.Tech in Computer Science at UPES, Dehradun. Reach me: deepaksonii@outlook.in
+Top skills
+Cloud Computing • Backend
+Featured
+Post
+🌟 Scaling New Heights Tonight: Mastering ALBs, ASGs & Cloud Networking
+It’s 5:30 AM and I’m back at it, slowly but surely making progress in my AWS journey.
+Tonight was all about bringing together Application Load Balancers and Auto Scaling Groups to create a functional, scalable mini-project.
+Following up on yesterday’s setup, I decided to put theory into practice, and carefully this time.
+Here’s what I accomplished:
+• Set up a custom VPC with 3 public and 3 private subnets across multiple Availability Zones
+• Attached an Internet Gateway to the VPC and created 1 NAT Gateway per public subnet, routing each to a corresponding private subnet
+• Configured all route tables and Security Groups for security
+• Launched a simple Flask server on an EC2 instance, listening on port 8080, created an AMI from it, and used that to build an EC2 Launch Template
+• Created a Target Group to register instances in the private subnets and set it to forward traffic to port 8080
+• Set up an Application Load Balancer (ALB) in the public subnets, connected it to the target group
+• Created an Auto Scaling Group (ASG) using the launch template and linked it to the ALB’s target group
+• Added a Bastion Host EC2 instance in the public subnet with a public IP to SSH into the EC2s inside private subnets for debugging and testing purposes
+Throughout, I made sure to distribute resources across multiple AZs to ensure high availability.
+And finally… it worked! The Load Balancer was distributing traffic to EC2 instances created by the ASG, all using my custom Flask AMI.
+A small win, but a big boost!
+Good night, or rather, good morning :)
+On to the next.
+hashtag
+#AWS 
+#CloudComputing 
+#AutoScaling 
+#ApplicationLoadBalancer 
+#Networking 
+#Flask 
+#DevJourney 
+#LearningInPublic
+9
+🧠 Late-Night Lesson: Don’t Skip the Basics - Cloud Edition
+Tonight I learned a lot, the hard way.
+I started off learning about EC2 Auto Scaling Groups in AWS. Set up a launch template, configured the ASG, and watched instances scale in and out based on CPU usage. It felt great to see it working.
+Then I thought, why not take it one step further?
+So I combined what I learned today (ASGs) with what I explored yesterday (ALBs) and built a small project. VPC, subnets, ASG, launch template, load balancer, everything seemed in place.
+But when I opened the ALB DNS in the browser… nothing.
+After checking every connection and config, I spun up a Bastion host in the public subnet, SSH’d into one of the EC2s launched by the ASG… and realized it was completely empty.
+No app, no server, just a plain instance.
+That’s when I learned that launch templates don’t carry your file system, I should’ve either added user data or used a proper AMI with everything pre-installed.
+By then, it was too late. My eyes were barely open, and I had to clean up all the resources before calling it a night. But honestly, I’m glad it happened.
+This mistake taught me more than a smooth setup would’ve.
+✅ Always test your launch template before wiring everything together
+✅ Don’t skip small steps just because things “feel right”
+✅ And definitely don’t trust late-night confidence too much
+I’ll redo it all tomorrow and this time, with better planning and a tested setup. That’s it for tonight.
+🌥️ Logging off from the cloud. See you in the next deployment.
+#LearningInPublic 
+#LateNightDebugging 
+#VPC 
+#LaunchTemplate 
+#RealWorldLearning
+18
+🌌 Cracked AWS Load Balancers, NAT Gateways and Bastion Hosts Tonight!
+Had another productive night learning and practicing AWS.
+Yesterday, I got comfortable with VPCs, Internet Gateways, and other networking basics. Today, I dug into Elastic Load Balancers - ALBs, NLBs, and Classic Load Balancers.
+I finally understood when to use a NAT Gateway (even though it's really expensive). I also learned how NAT Gateways let private subnets send outbound internet traffic for things like databases, and tested it hands-on.
+Here’s what I built to put it all into practice:
+• Set up a Bastion host in a public subnet with an Internet Gateway route
+• Created a private subnet with two EC2 instances running servers on port 8080
+• Deployed a NAT Gateway in the public subnet and updated the private subnet’s route table to allow egress traffic
+• SSH’ed into the bastion host, then into the private EC2s to install dependencies and set up NGINX on port 8080
+• Created a target group with both EC2s listening on port 80, then created an ALB pointing to that target group
+• Verified everything by accessing the load balancer’s DNS from different devices and seeing responses from both EC2s
+Honestly, it feels great to see it all working smoothly. Still a lot to learn, but this was a solid step forward.
+Next, I’m diving into Auto Scaling Groups to learn how to automatically adjust EC2 instances based on demand.
+Time to get some rest. Excited for what’s next!
+Good night and keep chasing those clouds ☁️✨
+#CloudNetworking 
+#LoadBalancers 
+#NATGateway 
+#TechLearning 
+#CloudInfrastructure
+12
+💯 Late-Night Progress: Understanding AWS VPC and Networking!
+It’s late and I’m tired, but I had to share this.
+Networking has always interested me, thanks to NetworkChuck’s CCNA videos from 10th class. But AWS networking concepts like VPC, Subnets, Route Tables, Security Groups, and CIDR blocks felt overwhelming for a while.
+Tonight, I challenged myself to truly understand AWS networking fundamentals. After watching a detailed video by Travis Media, things finally made sense.
+To put theory into practice, I built a mini project:
+• Created a custom VPC with public and private subnets
+• Launched an EC2 instance in the public subnet
+• Created a private EC2 instance with no internet access in the private subnet
+• Created an AMI from the public instance and deployed it to the private subnet
+• Configured the public instance to act as a reverse proxy, forwarding traffic to the private instance within the same VPC
+Had some issues with routing and security groups, but I’m glad I did. Fixing them really helped me learn.
+Feeling accomplished after this hands-on learning session. More cloud adventures ahead! 🚀
+#Subnet 
+#SecurityGroups 
+🚀 Exploring AWS ECS & ECR!
+Today, I took another step forward in my cloud journey by diving into AWS Elastic Container Service (ECS) and Elastic Container Registry (ECR).
+I built a test Docker image, pushed it to a private ECR repository, created a Task Definition and Cluster on ECS, and deployed the container with port 80 exposed via Security Group configuration.
+This hands-on experience made me appreciate the power of ECS and how it can be a smarter choice over raw EC2 in many scenarios. It’s a crucial piece for my upcoming project, building a Vercel-like PaaS on AWS.
+Loving the learning journey so far. More cloud updates coming soon, stay tuned!
+#ECS 
+#ECR 
+#Docker 
+#PaaS 
+#LearningByBuilding
+19
+Activity
+805 followers
+Create a post
+Posts
+Comments
+Videos
+Images
+Documents
+Loaded 9 Posts posts
+Deepak Soni
+   • You
+Verified • You
+1d • 
+ 
+1 day ago • Visible to anyone on or off LinkedIn
+…more
+Activate to view larger image,
+3d • 
+3 days ago • Visible to anyone on or off LinkedIn
+Show all posts
+Experience
+Backend Developer Intern
+FeinAI · Internship
+Jun 2025 - Jul 2025 · 2 mos
+Jun 2025 to Jul 2025 · 2 mos
+Gurugram, Haryana, India · Remote
+• Independently build a secure and scalable backend from scratch
+• Used Flask, MongoDB and PostgreSQL (via SQLAlchemy)
+• Collaborated with frontend and AI/ML team for integration
+• Designed REST APIs, following OOP principles
+• Built a secure session-based authentication system
+• Implemented CORS, error handling and password hashing
+• Deployed server on AWS EC2 with Gunicorn
+• Set up CI/CD pipeline using GitHub Actions for future deployments
+• Enabled TLS on server, with Nginx as reverse proxy
+• Automated infrastructure provisioning with Terraform
+• Independently build a secure and scalable backend from scratch • Used Flask, MongoDB and PostgreSQL (via SQLAlchemy) • Collaborated with frontend and AI/ML team for integration • Designed REST APIs, following OOP principles • Built a secure session-based authentication system • Implemented CORS, error handling and password hashing • Deployed server on AWS EC2 with Gunicorn • Set up CI/CD pipeline using GitHub Actions for future deployments • Enabled TLS on server, with Nginx as reverse proxy • Automated infrastructure provisioning with Terraform
+Cloud Computing and Back-End Web Development
+Student Mentor
+Microsoft Technical Community
+• Mentored 70+ students in React Native as 1 of 3 instructors
+• Explained REST APIs and their integration
+• Taught JavaScript Fundamentals, Git & GitHub, Styling, Lists and Asynchronous JS
+• Conducted doubt sessions and interactive discussions
+• Mentored 70+ students in React Native as 1 of 3 instructors • Explained REST APIs and their integration • Taught JavaScript Fundamentals, Git & GitHub, Styling, Lists and Asynchronous JS • Conducted doubt sessions and interactive discussions
+Open-Source Maintainer
+PyPI
+Jun 2023 - Jun 2024 · 1 yr 1 mo
+Jun 2023 to Jun 2024 · 1 yr 1 mo
+• Maintained 3 open-source python packages
+• Gained 130,000+ downloads on PyPI
+• Crossed 500+ stars on GitHub
+• Maintained 3 open-source python packages • Gained 130,000+ downloads on PyPI • Crossed 500+ stars on GitHub
+REST APIs and Python (Programming Language)
+Education
+Bachelor of Technology - BTech, Computer Science
+Aug 2024 - Aug 2028
+Projects
+AI Mock Interviewer
+Jun 2025 - Jul 2025
+• An AI interviewer that takes your interview on your selected topic to help you prepare for any interview — best optimised for technical interviews.
+• Uses GPT-4o-Mini for conversation, GPT-4o for generating questions, Whisper API for speech recognition and GPT-4o-Mini-TTS for speech generation.
+• Uses React with JavaScript, using Flask for backend and MongoDB as a database.
+• An AI interviewer that takes your interview on your selected topic to help you prepare for any interview — best optimised for technical interviews. • Uses GPT-4o-Mini for conversation, GPT-4o for generating questions, Whisper API for speech recognition and GPT-4o-Mini-TTS for speech generation. • Uses React with JavaScript, using Flask for backend and MongoDB as a database.
+AI Resume Screener
+Jan 2025 - Feb 2025
+• A python-based resume screener that extracts text and links from PDFs, preprocesses using SpaCy Lemmatisation, removes stop words and irrelevant terms, and computes Cosine Similarity with job preferences via TF-IDF algorithm.
+• It scrapes the candidate’s GitHub profile to aggregate Repository Stars and incorporates this metric into the final ranking, providing Top-K best fit candidates.
+• A python-based resume screener that extracts text and links from PDFs, preprocesses using SpaCy Lemmatisation, removes stop words and irrelevant terms, and computes Cosine Similarity with job preferences via TF-IDF algorithm. • It scrapes the candidate’s GitHub profile to aggregate Repository Stars and incorporates this metric into the final ranking, providing Top-K best fit candidates.
+Skills
+Cloud Computing
+Backend Developer Intern at FeinAI
+Backend
+Show all 49 skills
+Honors & awards
+Star Performer Award
+Issued by Cloud Security Alliance, UPES · May 2025
+Associated with UPES
+• Honored for impactful work and commitment
+• Recognized for leadership during 2024-25 tenure
+• Led backend team for an internal chapter project
+• Honored for impactful work and commitment • Recognized for leadership during 2024-25 tenure • Led backend team for an internal chapter project
+2nd Runner Up
+Issued by Innovation, UPES CSI · Sep 2024
+• Ranked 3rd among 50+ teams
+• Pitched innovative ideas to revive a startup
+• Ranked 3rd among 50+ teams • Pitched innovative ideas to revive a startup
+Show all 3 honors & awards
+Languages
+English
+Professional working proficiency
+Hindi
+Native or bilingual proficiency
+Organizations
+IEEE-CS
+Technical Head · Apr 2025 - Present
+• Interviewed 15+ candidates for core tech team
+• Developed chapter website using Wordpress
+• Coded “Spin The Wheel” game for the club fair
+• Interviewed 15+ candidates for core tech team • Developed chapter website using Wordpress • Coded “Spin The Wheel” game for the club fair
+OPEN Summer of Code 2025
+Project Mentor - Askage · Jun 2025 - Jul 2025
+• Mentored a chrome extension to chat with webpages
+• Merged 30+ PRs, 100+ commits with 10+ contributors
+• Integrated GPT-4o-Mini API, deployed on AWS EC2
+• Used Docker, Flask, MongoDB and Gunicorn
+• Integrated Google Sign-in and Flask Rate Limiter
+• Mentored a chrome extension to chat with webpages • Merged 30+ PRs, 100+ commits with 10+ contributors • Integrated GPT-4o-Mini API, deployed on AWS EC2 • Used Docker, Flask, MongoDB and Gunicorn • Integrated Google Sign-in and Flask Rate Limiter
+Interests
+Companies
+Microsoft
+25,957,810 followers
+Following
+Google
+38,126,402 followers
+Profile language
+Public profile & URL
+www.linkedin.com/in/deepaksonii
+Who your viewers also viewed
+Someone at Cyber Sentinel UPES Student Chapter
+View
+Someone at UPES CSA Student Chapter
+Someone at UPES
+Software Developer in the Software Development industry from Dehradun
+People you may know
+From your school
+Lakshya Gupta
+Final year student | Computer Science Engineer | Looking for Java developer and AI/ML engineer related opportunities
+Connect
+Garvit Gandhi
+Sophomore@Upes
+Sahil Beniwal
+AI/ML Innovator | Building @TrueSkin |Crypto Enthusiast | Building Intelligent Products for the Future
+Isha Yadav
+Pre Final Year Student B.Tech CSE (AIML) | 
+Coding and Creativity |
+Student at UPES
+Pre Final Year Student B.Tech CSE (AIML) | Coding and Creativity | Student at UPES
+Ishaan Narayan
+AIML Intern @ Adeptia ||
+Python , JS , C++ , ML, DL, ComputerVision , GenAi , AgenticAi || Final Year @UPES
+AIML Intern @ Adeptia || Python , JS , C++ , ML, DL, ComputerVision , GenAi , AgenticAi || Final Year @UPES
+Show all
+You are on the messaging overlay. Press enter to open the list of conversations.
+Compose message
+Page inboxes
+Click to see affiliated inboxes

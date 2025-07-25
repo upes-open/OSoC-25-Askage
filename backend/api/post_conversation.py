@@ -20,6 +20,10 @@ def create_conversation(user_id: str):
     Creates a new conversation in the database.
     Returns: JSON with status and conversation_id.
     """
+    
+    if not user_id: return jsonify({
+        "status": "fail"
+    }), 401
 
     try:
         conversation_id = db.new_conversation(user_id)
@@ -32,5 +36,5 @@ def create_conversation(user_id: str):
     except Exception as e:
         return jsonify({
             "status": "fail",
-            "error": str(e)
+            "error": "Internal server error"
         }), 500

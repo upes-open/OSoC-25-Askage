@@ -74,9 +74,61 @@ class MongoHandler:
         
         try:
             collection = self.db["conversations"]
-            result = collection.insert_one({"user_id": user_id})
+            result = collection.insert_one({
+                "user_id": user_id,
+                "history": []
+            })
             
             return str(result.inserted_id)
+        
+        except Exception as e:
+            raise Exception(f"MongoDB error: {e}")
+        
+    def get_chat_history(
+        self,
+        user_id: str,
+        conversation_id: str
+    ) -> list[dict]:
+        """
+        Fetches chat history of conversation.
+        Returns: Chat history
+        """
+        
+        try:
+            collection = self.db["conversations"]
+            
+            result = collection.find_one({
+                "_id": ObjectId(conversation_id),
+                "user_id": user_id
+            })
+            
+            return result["history"]
+        
+        except Exception as e:
+            raise Exception(f"MongoDB error: {e}")
+        
+    def update_chat_history(
+        self,
+        user_id: str,
+        conversation_id: str,
+        history: list
+    ) -> bool:
+        """
+        Updates chat history of conversation.
+        Returns: Updated?
+        """
+        
+        try:
+            collection = self.db["conversations"]
+            
+            result = collection.update_one({
+                "_id": ObjectId(conversation_id),
+                "user_id": user_id
+            }, {
+                "$set": {"history": history}
+            })
+            
+            return result.matched_count > 0
         
         except Exception as e:
             raise Exception(f"MongoDB error: {e}")

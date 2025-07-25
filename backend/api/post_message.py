@@ -1,25 +1,96 @@
 from flask import Blueprint, request, jsonify
+from utils.db_handler import MongoHandler
 from dotenv import load_dotenv
 from decorators.authenticated_request import authenticated
 import os
+from utils.llm_core import LLMCore
 
 env = os.getenv("ENV", "development")
 
 load_dotenv(".env.production" if (env == "production") else ".env.development")
 
+db: MongoHandler = MongoHandler(uri=os.getenv("MONGODB_URI"))
+llm: LLMCore = LLMCore(api_key=os.getenv("OPENAI_API_KEY"))
+
 title: str = "post_message"
 blueprint: Blueprint = Blueprint(title, title)
 
+def remove_duplicate_lines(text):
+    seen = set()
+    result = []
+    
+    for line in text.splitlines():
+        if line not in seen:
+            seen.add(line)
+            result.append(line)
+    
+    return '\n'.join(result)
+
 @blueprint.post("/conversations/<conversation_id>/messages/")
-@authenticated()
+@authenticated(allow_unauthenticated=True)
 def post_message(user_id: str, conversation_id: str):
+    """
+    API Endpoint to send a message.
+    """
+    
+    if not user_id or not db.verify_conversation(
+        user_id=user_id,
+        conversation_id=conversation_id
+    ): return jsonify({
+        "status": "ok",
+        "response": "You're not logged in."
+    }), 200
+    
     try:
         data = request.get_json()
         message = data.get("message")
-        webpage_content = data.get("webpage_content")
-
+        webpage_content = remove_duplicate_lines(data.get("webpage_content"))
+        
+        # Fetch chat history
+        chat_history: list[dict[str, str]] = db.get_chat_history(
+            user_id=user_id,
+            conversation_id=conversation_id
+        )
+        
+        # Prepare prompt
+        prompt_content: str = f"""
+        You are Askage, a chrome extension that lets users chat with any webpage.
+        You will be shared the webpage content each time and the user's message.
+        You must respond to user's message by reading the webpage content.
+        You must talk to the user politely.
+        Don't use markdown or any text formatting in your responses, just respond in plain text responses.
+        You must respond in very short, concise and minimum required information, in paragraph form, and no bullet points.
+        Tell only what's asked and nothing else.
+        You can also use emojies in your responses to make them friendly.
+        
+        User's prompt: "{message}"
+        
+        Below, is the text scraped from user's currently opened webpage, use it as context for your response:
+        {webpage_content}
+        """.strip()
+        
+        # Generate LLM response
+        llm_response: str = llm.prompt([*chat_history, {
+            "role": "user",
+            "content": prompt_content
+        }])
+        
+        # Prepare new chat history
+        modified_chat_history: list[dict[str, str]] = [
+            *chat_history,
+            {"role": "user", "content": message},
+            {"role": "assistant", "content": llm_response}
+        ]
+        
+        # Update chat history in Database
+        db.update_chat_history(
+            user_id=user_id,
+            conversation_id=conversation_id,
+            history=modified_chat_history
+        )
+        
         return jsonify({
-            "response": "Hey! I'm Askage. Currently I am not accepting any new requests."
+            "response": llm_response
         }), 200
 
     except Exception as e:

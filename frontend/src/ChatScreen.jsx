@@ -16,7 +16,7 @@ function ChatScreen({ authState }) {
   const [scrapeCounter, setScrapeCounter] = useState(0);
   const [bearerToken, setBearerToken] = useState("");
   const [conversationId, setConversationId] = useState(null);
-  const [shouldCreateConversation, setShouldCreateConversation] = useState(true);
+  const [shouldCreateConversation, setShouldCreateConversation] = useState(false);
 
   const addMessage = (type, content) => {
     setMessages((prev) => [...prev, { type, content }]);
@@ -62,7 +62,7 @@ function ChatScreen({ authState }) {
   };
 
   const broadcastMessage = async (message) => {
-    const webpageContent = webpageContentRaw.split(":")[1];
+    const webpageContent = webpageContentRaw.slice(webpageContentRaw.indexOf(":") + 1);
     let response = "Ahh! Something went wrong!";
 
     try {
@@ -78,8 +78,8 @@ function ChatScreen({ authState }) {
         })
       });
 
-      if (res.status === 200) {
-        response = await res.json()["response"];
+      if (res.status == 200) {
+        response = (await res.json())["response"];
       } else {
         console.error(`Unexpected status: ${res.status}`);
       }
@@ -103,6 +103,7 @@ function ChatScreen({ authState }) {
 
   const refreshBearerToken = async () => {
     setBearerToken(await getBearerToken());
+    setShouldCreateConversation(true);
   }
 
   const createConversation = async () => {
@@ -110,7 +111,7 @@ function ChatScreen({ authState }) {
 
     // TODO: Fix! Session storage is extension-based and not webpage-based
     const storedConversationId = sessionStorage.getItem("conversation_id");
-    console.log(storedConversationId)
+
     if (storedConversationId !== null) {
       setConversationId(storedConversationId);
       return;
@@ -150,7 +151,11 @@ function ChatScreen({ authState }) {
   }, []);
 
   useEffect(() => {
-    if (authState === "chat") inputRef.current?.focus();
+    if (authState === "chat") {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 1);
+    }
   }, [authState]);
 
   return (

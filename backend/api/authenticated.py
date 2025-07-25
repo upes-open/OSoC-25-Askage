@@ -10,5 +10,5 @@ def check_authentication(user_id: str):
     """
     Verifies if request is authenticated.
     """
-    
+
     return Response("", status=200 if user_id else 401)
