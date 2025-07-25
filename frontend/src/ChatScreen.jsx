@@ -63,7 +63,7 @@ function ChatScreen({ authState }) {
 
   const broadcastMessage = async (message) => {
     const webpageContent = webpageContentRaw.split(":")[1];
-    const response = "Ahh! Something went wrong!";
+    let response = "Ahh! Something went wrong!";
 
     try {
       const res = await fetch(`http://localhost/api/conversations/${conversationId}/messages/`, {
