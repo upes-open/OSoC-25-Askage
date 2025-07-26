@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
 #login-screen {
     width: 330px;
     height: 520px;
@@ -5,13 +6,13 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4472ca 100%);
-    background-image: url('./assets/background.svg');
+    margin-top: 30px;
+    background: rgb(0, 0, 0);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     position: relative;
     overflow: hidden;
 }
@@ -58,21 +59,24 @@
 .brand-title {
     font-size: 32px;
     font-weight: bold;
+    font-family: "Jersey 15", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     letter-spacing: 4px;
     margin: 0 0 16px 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    font-family: 'Courier New', monospace;
 }
 
 .brand-tagline {
     font-size: 16px;
     margin: 0;
-    opacity: 0.9;
+    opacity: 1;
     font-weight: 300;
     letter-spacing: 0.5px;
 }
 
 .login-section {
+    margin-top: 30px;
     width: 100%;
     max-width: 280px;
 }

@@ -23,21 +23,18 @@ function LoginScreen({ authState, setAuthState }) {
   return (
     <div id="login-screen" style={{ display: (authState === "login") ? "flex" : "none" }}>
       <div className="login-content">
-        <div className="logo-container">
+        {/* <div className="logo-container">
           <div className="question-mark-icon">
             <img src={icon} alt="icon" />
           </div>
-        </div>
+        </div> */}
 
         <div className="brand-section">
-          <h1 className="brand-title">ASKAGE</h1>
+          <h1 className="brand-title">Askage</h1>
           <p className="brand-tagline">Ask smarter. Browse better.</p>
         </div>
 
         <div className="login-section">
-          <div className="login-divider">
-            <span>Login with</span>
-          </div>
 
           <button className="google-login-btn" onClick={googleLogin}>
             <div className="google-icon">
