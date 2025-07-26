@@ -53,21 +53,7 @@ def post_message(user_id: str, conversation_id: str):
         )
         
         # Prepare prompt
-        prompt_content: str = f"""
-        You are Askage, a chrome extension that lets users chat with any webpage.
-        You will be shared the webpage content each time and the user's message.
-        You must respond to user's message by reading the webpage content.
-        You must talk to the user politely.
-        Don't use markdown or any text formatting in your responses, just respond in plain text responses.
-        You must respond in very short, concise and minimum required information, in paragraph form, and no bullet points.
-        Tell only what's asked and nothing else.
-        You can also use emojies in your responses to make them friendly.
-        
-        User's prompt: "{message}"
-        
-        Below, is the text scraped from user's currently opened webpage, use it as context for your response:
-        {webpage_content}
-        """.strip()
+        prompt_content: str = f"User's prompt: \"{message}\"\nBelow is the text scraped from the user's currently opened webpage. Use it only as context for your response:\n{webpage_content}"
         
         # Generate LLM response
         llm_response: str = llm.prompt([*chat_history, {

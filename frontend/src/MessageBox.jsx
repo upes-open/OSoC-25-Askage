@@ -16,11 +16,11 @@ function MessageBox({ inputRef, sendMessage, enabled }) {
   };
 
   return (
-    <div id="message">
+    <div id="message-box-container">
       <input
         type="text"
         id="message-box"
-        placeholder="Summarize their profile"
+        placeholder="Message"
         ref={inputRef}
         value={messageText}
         onChange={(e) => setMessageText(e.target.value)}

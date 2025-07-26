@@ -145,22 +145,37 @@ function ChatScreen({ authState }) {
     if (!initialized.current) {
       refreshBearerToken();
 
-      addMessage("incoming", "Hello");
+      addMessage("incoming", "Hey! I'm Askage. Ask me anything from this webpage.");
+
       initialized.current = true;
     }
   }, []);
 
+  const inputFocus = () => {
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 1);
+  }
+
   useEffect(() => {
-    if (authState === "chat") {
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 1);
+    if (authState === "chat" && conversationId != null) {
+      inputFocus();
     }
-  }, [authState]);
+  }, [authState, conversationId]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", (e) => {
+      inputFocus();
+    });
+
+    return () => {
+      window.removeEventListener("focus", inputFocus);
+    };
+  }, []);
 
   return (
     <>
-      <div id="chat-screen" style={{ display: (authState === "chat" && conversationId != null) ? "flex" : "none", backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${backgroundImage})` }}>
+      <div id="chat-screen" style={{ display: (authState === "chat" && conversationId != null) ? "flex" : "none" }}>
         <Heading />
         <ChatHistory chatHistoryRef={chatHistoryRef} messages={messages} />
         <MessageBox inputRef={inputRef} sendMessage={sendMessage} enabled={messageBoxEnabled} />
@@ -169,10 +184,8 @@ function ChatScreen({ authState }) {
       <div id="creating-conversation-screen" style={{ display: (authState === "chat" && conversationId == null) ? "flex" : "none" }}>
         <div className="loading-container">
           <div className="loading-spinner"></div>
-          <p className="loading-text">Creating conversation...</p>
         </div>
       </div>
-
     </>
   );
 }

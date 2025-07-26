@@ -1,9 +1,11 @@
 #info-chat-bubble {
   text-align: center;
-  background-color: rgba(228, 228, 93, 0.7);
-  backdrop-filter: blur(10px);
-  color: rgb(41, 53, 9);
-  padding: 0.5rem;
-  border-radius: 1em;
+  background-color: rgba(255, 255, 255, 0.09);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 10px 20px;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 0.5em;
   margin-bottom: 0.5rem;
 }

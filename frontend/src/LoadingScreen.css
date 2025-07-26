@@ -1,38 +1,30 @@
 #loading-screen {
     width: 330px;
     height: 520px;
-    padding: 10px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    background-image: url('./assets/background.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
 }
 
-#loader {
-    height: 100px;
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-spinner {
     width: 100px;
-    border: 10px solid rgb(49, 49, 208);
-    border-top: 10px solid grey;
+    height: 100px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top: 3px solid white;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-#loader-screen-info {
-    font-size: 1rem;
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

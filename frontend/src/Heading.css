@@ -1,18 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
+
 #heading-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-}
-
-#heading-container img {
-  width: 20px;
-  margin-right: 8px;
+  margin-top: 12px;
+  margin-bottom: 5px;
 }
 
 #heading {
-  margin-block: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  text-align: center;
+  font-family: "Jersey 15", sans-serif;
+  font-size: 30px;
 }
