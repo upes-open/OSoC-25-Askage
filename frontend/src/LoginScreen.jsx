@@ -10,7 +10,7 @@ function LoginScreen({ authState, setAuthState }) {
 
     chrome.runtime.sendMessage({ type: "GOOGLE_SIGN_IN" }, status => {
       if (!status) {
-        setLoginError("Couldn't log in");
+        setLoginError("There was a problem logging you in.");
         setAuthState("login");
 
         return;
@@ -23,12 +23,6 @@ function LoginScreen({ authState, setAuthState }) {
   return (
     <div id="login-screen" style={{ display: (authState === "login") ? "flex" : "none" }}>
       <div className="login-content">
-        {/* <div className="logo-container">
-          <div className="question-mark-icon">
-            <img src={icon} alt="icon" />
-          </div>
-        </div> */}
-
         <div className="brand-section">
           <h1 className="brand-title">Askage</h1>
           <p className="brand-tagline">Ask smarter. Browse better.</p>
@@ -49,7 +43,7 @@ function LoginScreen({ authState, setAuthState }) {
           </button>
 
           {/* TODO: Style this component */}
-          <span style={{ display: (loginError !== null) ? "block" : "none", fontSize: "18px", marginTop: "10px", color: "rgb(234, 159, 159)" }}>{loginError}</span>
+          <span style={{ display: (loginError !== null) ? "block" : "none" }} className="login-error">{loginError}</span>
         </div>
       </div>
     </div>

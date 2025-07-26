@@ -63,7 +63,7 @@ function ChatScreen({ authState }) {
 
   const broadcastMessage = async (message) => {
     const webpageContent = webpageContentRaw.slice(webpageContentRaw.indexOf(":") + 1);
-    let response = "Ahh! Something went wrong!";
+    let response = "Apologies, there was an issue on my end.";
 
     try {
       const res = await fetch(`http://localhost/api/conversations/${conversationId}/messages/`, {
@@ -145,7 +145,7 @@ function ChatScreen({ authState }) {
     if (!initialized.current) {
       refreshBearerToken();
 
-      addMessage("incoming", "Hey! I'm Askage. Ask me anything from this webpage.");
+      addMessage("incoming", "Hello! How can I assist you today?");
 
       initialized.current = true;
     }
