@@ -158,6 +158,10 @@ function ChatScreen({ authState }) {
       response.forEach(message => {
         addMessage(message.type, message.content, true);
       });
+
+      setTimeout(() => {
+        scrollChatHistoryToBottom();
+      }, 1);
     });
   }
 
