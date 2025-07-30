@@ -3,7 +3,6 @@ import Heading from "./Heading";
 import ChatHistory from "./ChatHistory";
 import MessageBox from "./MessageBox";
 import "./ChatScreen.css";
-import backgroundImage from "./assets/background.svg"
 
 function ChatScreen({ authState }) {
   const [messages, setMessages] = useState([]);
@@ -18,9 +17,11 @@ function ChatScreen({ authState }) {
   const [conversationId, setConversationId] = useState(null);
   const [shouldCreateConversation, setShouldCreateConversation] = useState(false);
 
-  const addMessage = (type, content) => {
+  const addMessage = (type, content, silent = false) => {
     setMessages((prev) => [...prev, { type, content }]);
     scrollChatHistoryToBottom();
+
+    if (!silent) saveConversationMessage(type, content);
   };
 
   const scrollChatHistoryToBottom = () => {
@@ -106,16 +107,28 @@ function ChatScreen({ authState }) {
     setShouldCreateConversation(true);
   }
 
+  const saveConversationSession = async (temp_conversation_id) => {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+    chrome.tabs.sendMessage(tab.id, {
+      action: "new_session",
+      conversation_id: temp_conversation_id
+    });
+  }
+
+  const saveConversationMessage = async (type, content) => {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+    chrome.tabs.sendMessage(tab.id, {
+      action: "save_session_message",
+      message_type: type,
+      message_content: content,
+      conversation_id: conversationId
+    });
+  }
+
   const createConversation = async () => {
     if (!shouldCreateConversation) return;
-
-    // TODO: Fix! Session storage is extension-based and not webpage-based
-    const storedConversationId = sessionStorage.getItem("conversation_id");
-
-    if (storedConversationId !== null) {
-      setConversationId(storedConversationId);
-      return;
-    }
 
     const res = await fetch(`http://localhost/api/conversations/`, {
       method: "POST",
@@ -125,28 +138,64 @@ function ChatScreen({ authState }) {
     });
 
     try {
-      const res_json = await res.json();
+      const temp_conversation_id = (await res.json())["conversation_id"];
 
-      setConversationId(res_json["conversation_id"]);
-      sessionStorage.setItem("conversation_id", res_json["conversation_id"]);
+      setConversationId(temp_conversation_id);
+      saveConversationSession(temp_conversation_id);
+
+      addMessage("incoming", "Hello! How can I assist you today?");
     } catch (err) {
       console.error(err);
     }
   }
 
+  const loadStoredMessages = async () => {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+    chrome.tabs.sendMessage(tab.id, {
+      action: "get_session_messages"
+    }, (response) => {
+      response.forEach(message => {
+        addMessage(message.type, message.content, true);
+      });
+    });
+  }
+
+  const storedConversationStatus = async () => {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+    // Get stored session
+    chrome.tabs.sendMessage(tab.id, {
+      action: "get_session_data"
+    }, (response) => {
+      if (!response) {
+        createConversation();
+        return;
+      }
+
+      const storedConversationId = response.conversation_id;
+
+      if (!storedConversationId) {
+        createConversation();
+        return;
+      }
+
+      setConversationId(storedConversationId);
+      loadStoredMessages();
+    });
+  }
+
   useEffect(() => {
     if (shouldCreateConversation) {
       setShouldCreateConversation(false);
-      createConversation();
+
+      storedConversationStatus();
     }
   }, [shouldCreateConversation]);
 
   useEffect(() => {
     if (!initialized.current) {
       refreshBearerToken();
-
-      addMessage("incoming", "Hello! How can I assist you today?");
-
       initialized.current = true;
     }
   }, []);
