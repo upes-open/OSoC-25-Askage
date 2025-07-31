@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
 import "./MessageBox.css";
 
-function MessageBox({ inputRef, sendMessage, enabled }) {
-  const [messageText, setMessageText] = useState("");
+function MessageBox({ inputRef, sendMessage, enabled, messageText, setMessageText }) {
 
   const sendMessageAction = () => {
     if (!enabled) return;
@@ -35,4 +34,3 @@ function MessageBox({ inputRef, sendMessage, enabled }) {
 }
 
 export default MessageBox;
-

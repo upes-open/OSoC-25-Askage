@@ -5,6 +5,7 @@ from api import ping
 from api import post_conversation
 from api import google_auth
 from api import post_message
+from api import get_prompt_suggestions
 from api.errors import blueprint as errors_blueprint
 from utils.db_handler import MongoHandler
 from utils.limiter import limiter
@@ -32,6 +33,7 @@ app.register_blueprint(post_conversation.blueprint, url_prefix="/api")
 app.register_blueprint(post_message.blueprint, url_prefix="/api")
 app.register_blueprint(google_auth.blueprint, url_prefix='/api')
 app.register_blueprint(authenticated.blueprint, url_prefix="/api")
+app.register_blueprint(get_prompt_suggestions.blueprint, url_prefix="/api")
 app.register_blueprint(errors_blueprint)
 
 # Register error handlers

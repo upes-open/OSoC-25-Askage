@@ -3,12 +3,14 @@ import Heading from "./Heading";
 import ChatHistory from "./ChatHistory";
 import MessageBox from "./MessageBox";
 import "./ChatScreen.css";
+import PromptSuggestions from "./PromptSuggestions";
 
 function ChatScreen({ authState }) {
   const [messages, setMessages] = useState([]);
   const initialized = useRef(false);
   const inputRef = useRef(null);
   const [messageBoxEnabled, setMessageBoxEnabled] = useState(true);
+  const [messageText, setMessageText] = useState("");
   const chatHistoryRef = useRef(null);
   const [webpageContentRaw, setWebpageContent] = useState("");
   const [message, setMessage] = useState("");
@@ -16,6 +18,7 @@ function ChatScreen({ authState }) {
   const [bearerToken, setBearerToken] = useState("");
   const [conversationId, setConversationId] = useState(null);
   const [shouldCreateConversation, setShouldCreateConversation] = useState(false);
+  const [promptSuggestions, setPromptSuggestions] = useState([]);
 
   const addMessage = (type, content, silent = false) => {
     setMessages((prev) => [...prev, { type, content }]);
@@ -130,23 +133,43 @@ function ChatScreen({ authState }) {
   const createConversation = async () => {
     if (!shouldCreateConversation) return;
 
-    const res = await fetch(`http://localhost/api/conversations/`, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${bearerToken}`
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: () => document.body.innerText
+    }, async (results) => {
+      const temp_webpage_content = results[0].result;
+
+      const res = await fetch(`http://localhost/api/conversations/`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${bearerToken}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "webpage_content": temp_webpage_content
+        })
+      });
+
+      if (res.status !== 200) {
+        console.log("Couldn't create conversation!")
+        return;
+      }
+
+      try {
+        const temp_conversation_id = (await res.json())["conversation_id"];
+
+        setConversationId(temp_conversation_id);
+        saveConversationSession(temp_conversation_id);
+
+        addMessage("incoming", "Hello! How can I assist you today?");
+
+        loadPromptSuggestions(temp_conversation_id);
+      } catch (err) {
+        console.error(err);
       }
     });
-
-    try {
-      const temp_conversation_id = (await res.json())["conversation_id"];
-
-      setConversationId(temp_conversation_id);
-      saveConversationSession(temp_conversation_id);
-
-      addMessage("incoming", "Hello! How can I assist you today?");
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   const loadStoredMessages = async () => {
@@ -163,6 +186,23 @@ function ChatScreen({ authState }) {
         scrollChatHistoryToBottom();
       }, 1);
     });
+  }
+
+  const loadPromptSuggestions = async (temp_conversation_id) => {
+    const res = await fetch(`http://localhost/api/conversations/${temp_conversation_id}/suggestions/`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${bearerToken}`,
+        "Content-Type": "application/json",
+      }
+    });
+
+    if (res.status == 200) {
+      const suggestions = (await res.json())["suggestions"];
+      setPromptSuggestions(suggestions);
+    } else {
+      console.error(`Failed to fetch prompt suggestions: ${res.status}`);
+    }
   }
 
   const storedConversationStatus = async () => {
@@ -186,6 +226,8 @@ function ChatScreen({ authState }) {
 
       setConversationId(storedConversationId);
       loadStoredMessages();
+
+      loadPromptSuggestions(storedConversationId);
     });
   }
 
@@ -231,7 +273,8 @@ function ChatScreen({ authState }) {
       <div id="chat-screen" style={{ display: (authState === "chat" && conversationId != null) ? "flex" : "none" }}>
         <Heading />
         <ChatHistory chatHistoryRef={chatHistoryRef} messages={messages} />
-        <MessageBox inputRef={inputRef} sendMessage={sendMessage} enabled={messageBoxEnabled} />
+        <PromptSuggestions suggestions={promptSuggestions} setMessageText={setMessageText} inputRef={inputRef} />
+        <MessageBox inputRef={inputRef} sendMessage={sendMessage} enabled={messageBoxEnabled} messageText={messageText} setMessageText={setMessageText} />
       </div>
 
       <div id="creating-conversation-screen" style={{ display: (authState === "chat" && conversationId == null) ? "flex" : "none" }}>

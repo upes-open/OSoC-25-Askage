@@ -1,0 +1,14 @@
+#prompt-suggestions-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    padding: 5px 10px;
+    gap: 5px;
+}
+
+#prompt-suggestions-container::-webkit-scrollbar {
+    display: none;
+}

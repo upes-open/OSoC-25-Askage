@@ -65,7 +65,8 @@ class MongoHandler:
         
     def new_conversation(
         self,
-        user_id: str
+        user_id: str,
+        suggestions: list[str]
     ) -> str:
         """
         Creates a new conversation in Database.
@@ -74,15 +75,40 @@ class MongoHandler:
         
         try:
             collection = self.db["conversations"]
+            
             result = collection.insert_one({
                 "user_id": user_id,
                 "history": [{
                     "role": "system",
                     "content": "You are Askage, a Chrome extension that answers user questions based on webpage content. Always be polite, but reply with only the necessary information. Use minimal words, avoid complete sentences unless required. No explanations unless asked. Use plain text, no markdown or formatting. Paragraph form only. No bullet points, no lists."
-                }]
+                }],
+                "prompt_suggestions": suggestions
             })
             
             return str(result.inserted_id)
+        
+        except Exception as e:
+            raise Exception(f"MongoDB error: {e}")
+        
+    def get_prompt_suggestions(
+        self,
+        user_id: str,
+        conversation_id: str
+    ) -> list[str]:
+        """
+        Fetches prompt suggestions for specified conversation.
+        Returns: suggestions
+        """
+        
+        try:
+            collection = self.db["conversations"]
+            
+            result = collection.find_one({
+                "_id": ObjectId(conversation_id),
+                "user_id": user_id
+            })
+            
+            return result["prompt_suggestions"]
         
         except Exception as e:
             raise Exception(f"MongoDB error: {e}")
