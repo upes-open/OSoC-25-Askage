@@ -240,11 +240,11 @@ function ChatScreen({ authState }) {
   }, [shouldCreateConversation]);
 
   useEffect(() => {
-    if (!initialized.current) {
+    if (!initialized.current && authState === "chat") {
       refreshBearerToken();
       initialized.current = true;
     }
-  }, []);
+  }, [authState]);
 
   const inputFocus = () => {
     setTimeout(() => {

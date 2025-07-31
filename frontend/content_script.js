@@ -1,13 +1,3 @@
-let isDomLoaded = false;
-
-if (document.readyState === "interactive" || document.readyState === "complete") {
-  isDomLoaded = true;
-} else {
-  window.addEventListener("DOMContentLoaded", () => {
-    isDomLoaded = true;
-  });
-}
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "get_session_data") {
     let sessionData = sessionStorage.getItem("askage_session");
@@ -50,12 +40,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (!messages) messages = [];
 
     sendResponse(messages);
-  }
-
-  if (message.action === "is_dom_loaded") {
-    sendResponse({
-      loaded: isDomLoaded
-    });
   }
 
   return true;  // Keep message channel open

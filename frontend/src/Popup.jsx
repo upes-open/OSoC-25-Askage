@@ -60,27 +60,8 @@ function App() {
     setAuthState("chat");
   }
 
-  const fetchDomLoadState = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      console.log(tabs[0].id)
-      chrome.tabs.sendMessage(tabs[0].id, {
-        action: "is_dom_loaded"
-      }, (response) => {
-        if (response === undefined || !response.loaded) {
-          setTimeout(() => {
-            fetchDomLoadState();
-          }, 100);
-
-          return;
-        }
-
-        fetchAuthState();
-      });
-    })
-  }
-
   useEffect(() => {
-    fetchDomLoadState();
+    fetchAuthState();
   }, []);
 
   return (

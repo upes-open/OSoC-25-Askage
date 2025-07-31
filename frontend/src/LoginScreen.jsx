@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./LoginScreen.css";
-import icon from './assets/icon.png'
 
 function LoginScreen({ authState, setAuthState }) {
   const [loginError, setLoginError] = useState(null);
